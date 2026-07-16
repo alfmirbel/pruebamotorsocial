@@ -1,0 +1,49 @@
+{
+  "collections": [
+    {
+      "id": "motorsocial_users",
+      "vectors": {
+        "size": 384,
+        "distance": "Cosine"
+      },
+      "payload_indexes": [
+        {"field": "creatorId", "type": "keyword"},
+        {"field": "type", "type": "keyword"},
+        {"field": "status", "type": "keyword"},
+        {"field": "visibility", "type": "keyword"},
+        {"field": "location.country", "type": "keyword"},
+        {"field": "location.city", "type": "keyword"},
+        {"field": "createdAt", "type": "integer"}
+      ]
+    },
+    {
+      "id": "motorsocial_objects",
+      "vectors": {
+        "size": 384,
+        "distance": "Cosine"
+      },
+      "payload_indexes": [
+        {"field": "creatorId", "type": "keyword"},
+        {"field": "type", "type": "keyword"},
+        {"field": "status", "type": "keyword"},
+        {"field": "labels.*", "type": "keyword"},
+        {"field": "location.country", "type": "keyword"},
+        {"field": "location.city", "type": "keyword"},
+        {"field": "createdAt", "type": "integer"}
+      ]
+    },
+    {
+      "id": "motorsocial_activities",
+      "vectors": {
+        "size": 384,
+        "distance": "Cosine"
+      },
+      "payload_indexes": [
+        {"field": "actorId", "type": "keyword"},
+        {"field": "verb", "type": "keyword"},
+        {"field": "objectType", "type": "keyword"},
+        {"field": "createdAt", "type": "integer"}
+      ]
+    }
+  ]
+}

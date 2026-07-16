@@ -1,0 +1,142 @@
+{
+  "appName": "MotorSocialDemo",
+  "themeId": "light_default",
+  "modules": {
+    "identity": {
+      "loginTitle": "Bienvenido",
+      "identifierLabel": "Correo",
+      "secretLabel": "Contrase\u00f1a",
+      "primaryActionText": "Entrar",
+      "showRegisterAction": true,
+      "showForgotPasswordAction": true,
+      "defaultRoles": [
+        "user"
+      ],
+      "identifierRules": {
+        "minLength": 4,
+        "maxLength": 254,
+        "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+      }
+    },
+    "navigation": {
+      "startRoute": "/catalog",
+      "bottomTabs": [
+        {
+          "route": "/catalog",
+          "icon": "home",
+          "label": "Inicio"
+        },
+        {
+          "route": "/activity",
+          "icon": "feed",
+          "label": "Actividad"
+        },
+        {
+          "route": "/social_graph",
+          "icon": "people",
+          "label": "Comunidad"
+        },
+        {
+          "route": "/profile",
+          "icon": "person",
+          "label": "Perfil"
+        }
+      ]
+    },
+    "location": {
+      "enableGps": true,
+      "enableMapPicker": true,
+      "enablePostalCodeLookup": true,
+      "mapProvider": "google",
+      "primaryActionLabel": "Usar mi ubicaci\u00f3n",
+      "searchHint": "Buscar colonia o c\u00f3digo postal",
+      "availableCountries": [
+        "M\u00e9xico"
+      ]
+    },
+    "resilience": {
+      "connectivityPollIntervalMs": 4000,
+      "autoUnblockOnReconnect": true,
+      "offlineQueueMaxItems": 200,
+      "enablePlatformDetection": true
+    },
+    "catalog": {
+      "pageSize": 10,
+      "enablePagination": true,
+      "defaultSort": "created_at_desc",
+      "enableExport": true,
+      "exportFormats": [
+        "pdf"
+      ],
+      "allowedOwnerTypes": [
+        "user",
+        "group"
+      ]
+    },
+    "media": {
+      "maxFileSizeMb": 10,
+      "maxDimension": 1920,
+      "maxAssetsPerOwner": 50,
+      "defaultThumbWidth": 800,
+      "enableOrdering": true,
+      "enableCover": true,
+      "enableSlideshow": true,
+      "defaultOrderField": "order",
+      "allowedImageFormats": [
+        "jpg",
+        "jpeg",
+        "png",
+        "webp"
+      ],
+      "allowedVideoFormats": [
+        "mp4",
+        "mov",
+        "webm"
+      ]
+    },
+    "activity": {
+      "defaultPageSize": 20,
+      "enabledVerbs": [
+        "view",
+        "like",
+        "share",
+        "message",
+        "comment",
+        "price_change"
+      ],
+      "enableDirectMessages": true,
+      "enableShares": true,
+      "enableNotifications": true,
+      "ttlDays": 365
+    },
+    "social_graph": {
+      "enableContacts": true,
+      "enableGroups": true,
+      "enableInvitations": true,
+      "maxMembersPerGroup": 200,
+      "defaultRelationshipType": "contact"
+    },
+    "security": {
+      "enableRateLimit": true,
+      "windowMs": 60000,
+      "maxAttempts": 5,
+      "lockDurationMs": 300000,
+      "enableDeviceTracking": true,
+      "tokenTtlMinutes": 720
+    },
+    "design": {
+      "activeThemeId": "light_default",
+      "mode": "light",
+      "enableDarkModeToggle": true,
+      "enableCustomThemes": true,
+      "componentCategories": [
+        "colors",
+        "typography",
+        "spacing",
+        "shapes",
+        "elevation",
+        "motion"
+      ]
+    }
+  }
+}
