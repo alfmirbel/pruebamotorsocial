@@ -4,6 +4,7 @@ import 'package:pruebamotorsocial/motorsocial/social_graph/data_models/social_gr
 class InMemoryGroupMembersRepository implements GroupsRepository {
   Future<List<SocialGroup>> byGroup(String groupId) async => const <SocialGroup>[];
   Future<void> add(SocialGroup member) async {}
+  @override
   Future<List<SocialGroup>> discoverable({bool? visibility, bool? joinable}) async =>
       const <SocialGroup>[];
 }

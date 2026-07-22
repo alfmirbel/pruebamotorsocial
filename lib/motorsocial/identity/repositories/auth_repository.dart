@@ -10,11 +10,11 @@ abstract class AuthRepository {
 class StubAuthRepository implements AuthRepository {
   @override
   Future<AuthState> signIn(String email, String password) async =>
-      AuthState(isAuthenticated: true, userId: 'stub-user', isUserDataLoaded: true);
+      const AuthState(isAuthenticated: true, userId: 'stub-user', isUserDataLoaded: true);
 
   @override
   Future<AuthState> register(String email, String password, String displayName) async =>
-      AuthState(isAuthenticated: true, userId: 'stub-user', isUserDataLoaded: true);
+      const AuthState(isAuthenticated: true, userId: 'stub-user', isUserDataLoaded: true);
 
   @override
   Future<AuthState> recoverPassword(String email) async =>

@@ -1,1 +1,3 @@
-class MediaContract {}
+class MediaContract {
+  const MediaContract();
+}

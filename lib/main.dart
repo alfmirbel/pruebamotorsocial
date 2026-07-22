@@ -3,50 +3,54 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/config/social_app_config.dart';
 import 'core/motorsocial_bridge/bridge.dart';
-import 'core/app_shell.dart';
+import 'core/database/database_module.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final config = SocialAppConfig.defaults();
-
+  final databaseModule = DatabaseModule.local();
   runApp(
     ProviderScope(
       overrides: [
-        motorSocialBridgeProvider.overrideWith(
-          MotorSocialBridgeNotifier.new,
-        ),
-        socialAppConfigProvider.overrideWith((_) => config),
+        motorSocialBridgeProvider.overrideWithValue(createMotorSocialBridge(config: config, databaseModule: databaseModule)),
       ],
-      child: SocialApp(config: config),
+      child: const SocialAppRoot(),
     ),
   );
 }
 
-class SocialApp extends ConsumerWidget {
-  final SocialAppConfig config;
-  const SocialApp({required this.config, super.key});
+class SocialAppRoot extends ConsumerWidget {
+  const SocialAppRoot({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final bridge = ref.read(motorSocialBridgeProvider);
+    final config = bridge.config;
+    final uiMode = config.themeId.contains('dark') ? ThemeMode.dark : ThemeMode.system;
+    const seed = Color(0xFF415AA9);
     return MaterialApp(
       title: config.appName,
-      themeMode: ThemeMode.system,
+      themeMode: uiMode,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF415AA9),
-          brightness: Brightness.light,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.light),
         useMaterial3: true,
       ),
       darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF415AA9),
-          brightness: Brightness.dark,
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: seed, brightness: Brightness.dark),
         useMaterial3: true,
       ),
-      home: const MainShell(),
+      home: const _BootstrapPlaceholder(),
     );
   }
 }
 
+class _BootstrapPlaceholder extends StatelessWidget {
+  const _BootstrapPlaceholder();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(child: Text('MotorSocial bootstrap OK')),
+    );
+  }
+}

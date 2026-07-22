@@ -1,1 +1,3 @@
-class NavigationContract {}
+class NavigationContract {
+  const NavigationContract();
+}

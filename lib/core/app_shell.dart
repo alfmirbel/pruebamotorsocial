@@ -18,7 +18,7 @@ class MainShell extends ConsumerWidget {
     final session = ref.watch(sessionProvider);
     final userId = session['userId'];
     if (userId == null || userId.isEmpty) {
-      return const LoginPage();
+      return const LoginPage(key: ValueKey('login'));
     }
 
     return Scaffold(

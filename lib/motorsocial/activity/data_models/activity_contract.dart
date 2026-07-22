@@ -14,7 +14,19 @@ class SocialActivity {
   final String objectId;
   final Map<String, dynamic> payload;
   final int createdAt;
-  const SocialActivity({required this.id, required this.actorId, required this.actorName, required this.verb, required this.objectType, required this.objectId, this.payload = const <String, dynamic>{}, required this.createdAt});
+
+  const SocialActivity({
+    required this.id,
+    required this.actorId,
+    required this.actorName,
+    required this.verb,
+    required this.objectType,
+    required this.objectId,
+    this.payload = const <String, dynamic>{},
+    required this.createdAt,
+  });
 }
 
-class ActivityContract {}
+class ActivityContract {
+  const ActivityContract();
+}

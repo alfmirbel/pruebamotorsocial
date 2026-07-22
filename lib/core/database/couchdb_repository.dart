@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 
-/// Configuración mínima de CouchDB para pruebas/integración.
 class CouchDbConfig {
   final String scheme;
   final String host;
@@ -20,6 +18,15 @@ class CouchDbConfig {
     this.prefix = '',
   });
 
+  factory CouchDbConfig.local() => const CouchDbConfig(
+        scheme: 'http',
+        host: '127.0.0.1',
+        port: 5984,
+        username: '',
+        password: '',
+        prefix: '',
+      );
+
   Uri _build(String path) => Uri(
         scheme: scheme,
         host: host,
@@ -29,8 +36,7 @@ class CouchDbConfig {
 
   Map<String, String>? _authHeader() {
     if (username.isEmpty && password.isEmpty) return null;
-    final basic =
-        base64.encode('$username:$password'.codeUnits); // base64urldecode/encode standard
+    final basic = base64.encode('$username:$password'.codeUnits);
     return <String, String>{'Authorization': 'Basic $basic'};
   }
 
@@ -44,7 +50,7 @@ class CouchDbConfig {
     if (body is Map<String, dynamic>) {
       req.body = jsonEncode(body);
       req.headers['Content-Type'] = 'application/json';
-    } else if (body != null && body is String) {
+    } else if (body is String) {
       req.body = body;
     }
     final streamed = await req.send();
@@ -52,12 +58,6 @@ class CouchDbConfig {
   }
 }
 
-/// Repositorio HTTP mínimo contra CouchDB.
-///
-/// Maneja:
-/// - Design docs embebidos
-/// - Operaciones CRUD genéricas
-/// - Lectura de vistas Map-Reduce
 class CouchDbRepository {
   final CouchDbConfig config;
   final http.Client client;
@@ -109,10 +109,27 @@ class CouchDbRepository {
     final params = <String, String>{
       if (queryParams != null) ...queryParams,
     };
-    final qs = params.isEmpty ? '' : '?${params.entries.map((e) => '${e.key}=${Uri.encodeComponent(e.value)}').join('&')}';
+    final qs = params.isEmpty
+        ? ''
+        : '?${params.entries.map((e) => '${e.key}=${Uri.encodeComponent(e.value)}').join('&')}';
     final res = await config.request('GET', '$db/_design/$design/_view/$view$qs');
     if (res.statusCode == 200) return jsonDecode(res.body) as Map<String, dynamic>;
     throw _couchError(res);
+  }
+
+  Future<void> ensureDesignDoc(
+      String db, String design, Map<String, dynamic> functions) async {
+    final id = '_design/$design';
+    final doc = <String, dynamic>{
+      '_id': id,
+      'views': <String, dynamic>{},
+    };
+    for (final entry in functions.entries) {
+      (doc['views'] as Map<String, dynamic>)[entry.key] = <String, String>{
+        'map': entry.value as String,
+      };
+    }
+    await config.request('PUT', db, body: doc);
   }
 
   Future<Map<String, dynamic>> query(String db, String view,

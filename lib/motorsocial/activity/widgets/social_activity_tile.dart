@@ -11,6 +11,6 @@ class SocialActivityTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final label = (verbLabelBuilder?.call(activity) ?? 'Evento').toUpperCase();
-    return ListTile(title: Text(label), subtitle: Text(activity.actorName), trailing: Text('#${activity.objectId ?? '-'}'), onTap: () {});
+    return ListTile(title: Text(label), subtitle: Text(activity.actorName), trailing: Text('#${activity.objectId}'), onTap: () {});
   }
 }

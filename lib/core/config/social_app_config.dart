@@ -32,14 +32,28 @@ class SocialAppConfig {
   factory SocialAppConfig.defaults() => SocialAppConfig(
         appName: 'MotorSocialDemo',
         themeId: 'light_default',
-        identity: SocialIdentityContract(authState: const AuthState()),
-        navigation: NavigationContract(),
-        location: LocationContract(),
-        catalog: CatalogContract(providerName: 'demo'),
-        media: MediaContract(),
-        activity: ActivityContract(),
+        identity: SocialIdentityContract(authState: AuthState()),
+        navigation: const NavigationContract(),
+        location: const LocationContract(),
+        catalog: const CatalogContract(providerName: 'demo'),
+        media: const MediaContract(),
+        activity: const ActivityContract(),
         modules: const <String>[],
       );
+
+  factory SocialAppConfig.fromJson(Map<String, dynamic> json) {
+    return SocialAppConfig(
+      appName: (json['appName'] as String?) ?? 'MotorSocialDemo',
+      themeId: (json['themeId'] as String?) ?? 'light_default',
+      identity: const SocialIdentityContract(authState: AuthState()),
+      navigation: const NavigationContract(),
+      location: const LocationContract(),
+      catalog: const CatalogContract(providerName: 'demo'),
+      media: const MediaContract(),
+      activity: const ActivityContract(),
+      modules: const <String>[],
+    );
+  }
 
   String? moduleStatus(String name) {
     switch (name) {

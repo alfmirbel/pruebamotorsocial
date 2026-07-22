@@ -9,5 +9,5 @@ class SocialIdentityContract {
 }
 
 final socialIdentityContractProvider = Provider<SocialIdentityContract>((_) {
-  return SocialIdentityContract(authState: const AuthState());
+  return const SocialIdentityContract(authState: AuthState());
 });

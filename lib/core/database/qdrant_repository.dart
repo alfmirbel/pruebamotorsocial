@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 class QdrantConfig {
@@ -13,6 +14,13 @@ class QdrantConfig {
     this.port = 6333,
     this.apiKey = '',
   });
+
+  factory QdrantConfig.local() => const QdrantConfig(
+        scheme: 'http',
+        host: '127.0.0.1',
+        port: 6333,
+        apiKey: '',
+      );
 
   Uri _build(String path) => Uri(scheme: scheme, host: host, port: port, path: path);
 
@@ -32,28 +40,50 @@ class QdrantConfig {
     final streamed = await req.send();
     return http.Response.fromStream(streamed);
   }
-
-  Future<http.Response> upsert(String collection, Map<String, dynamic> body) async {
-    return request('PUT', '/collections/$collection/points', body: body);
-  }
 }
 
-abstract class QdrantRepository {
-  Future<void> upsertPoints(String collection, Map<String, dynamic> payload);
-}
-
-class HttpQdrantRepository implements QdrantRepository {
+class QdrantRepository {
   final QdrantConfig config;
   final http.Client client;
 
-  HttpQdrantRepository({required this.config, http.Client? client})
+  QdrantRepository({required this.config, http.Client? client})
       : client = client ?? http.Client();
 
-  @override
+  Future<bool> createCollection(String collection, int size, String distance) async {
+    final res = await config.request(
+      'PUT',
+      '/collections/$collection',
+      body: {
+        'vectors': {'size': size, 'distance': distance},
+      },
+    );
+    return res.statusCode == 200 || res.statusCode == 202;
+  }
+
+  Future<bool> ensureCollection(String collection, int size, String distance) async {
+    final res = await config.request('GET', '/collections/$collection');
+    if (res.statusCode == 200) return true;
+    return await createCollection(collection, size, distance);
+  }
+
   Future<void> upsertPoints(String collection, Map<String, dynamic> payload) async {
-    final res = await config.upsert(collection, payload);
+    final res = await config.request(
+      'PUT',
+      '/collections/$collection/points',
+      body: payload,
+    );
     if (res.statusCode != 200 && res.statusCode != 202) {
-      throw Exception('Qdrant ${res.statusCode}: ${res.reasonPhrase}');
+      throw Exception('Qdrant ${res.statusCode}: ${res.reasonPhrase}\n${res.body}');
     }
+  }
+
+  Future<Map<String, dynamic>> search(String collection, Map<String, dynamic> body) async {
+    final res = await config.request(
+      'POST',
+      '/collections/$collection/points/search',
+      body: body,
+    );
+    if (res.statusCode == 200) return jsonDecode(res.body) as Map<String, dynamic>;
+    throw Exception('Qdrant ${res.statusCode}: ${res.reasonPhrase}\n${res.body}');
   }
 }

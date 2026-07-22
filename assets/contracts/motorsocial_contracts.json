@@ -1,17 +1,131 @@
 {
   "appName": "MotorSocialDemo",
   "themeId": "light_default",
-  "modules": {
+  "nodes": {
+    "couchdb": {
+      "scheme": "http",
+      "host": "127.0.0.1",
+      "port": 5984,
+      "username": "",
+      "password": "",
+      "prefix": "",
+      "databases": [
+        "motorsocial_users",
+        "motorsocial_relationships",
+        "motorsocial_groups",
+        "motorsocial_group_members",
+        "motorsocial_invitations",
+        "motorsocial_activities",
+        "motorsocial_objects",
+        "motorsocial_media",
+        "motorsocial_security_events",
+        "motorsocial_sync_state"
+      ],
+      "designDocs": {
+        "users": {
+          "by_email": "function (doc) { if (doc.value && doc.value.email) emit(doc.value.email.toLowerCase(), {id: doc._id, rev: doc._rev, displayName: doc.value.displayName}); }",
+          "by_createdAt": "function (doc) { if (doc.value && doc.value.createdAt) emit(doc.value.createdAt, doc._id); }"
+        },
+        "relationships": {
+          "by_actor_status": "function (doc) { if (doc.actorId) emit([doc.actorId, doc.status], {id: doc._id, otherId: doc.otherId, direction: doc.direction, createdAt: doc.createdAt}); }",
+          "by_other_status": "function (doc) { if (doc.otherId) emit([doc.otherId, doc.status], {id: doc._id, actorId: doc.actorId, direction: doc.direction, createdAt: doc.createdAt}); }",
+          "by_direction_createdAt": "function (doc) { if (doc.direction) emit([doc.actorId, doc.direction, doc.createdAt], doc._id); }"
+        },
+        "groups": {
+          "by_owner": "function (doc) { if (doc.ownerId) emit(doc.ownerId, {id: doc._id, name: doc.name, visibility: doc.visibility, joinable: doc.joinable}); }",
+          "by_visibility_joinable": "function (doc) { emit([doc.visibility || 'public', String(doc.joinable)], doc._id); }",
+          "by_createdAt": "function (doc) { if (doc.createdAt) emit(doc.createdAt, doc._id); }"
+        },
+        "group_members": {
+          "by_group_user": "function (doc) { if (doc.groupId && doc.userId) emit([doc.groupId, doc.userId], {role: doc.role, joinedAt: doc.joinedAt}); }",
+          "by_user": "function (doc) { if (doc.userId) emit(doc.userId, {groupId: doc.groupId, role: doc.role, joinedAt: doc.joinedAt}); }",
+          "by_group_role": "function (doc) { if (doc.groupId) emit([doc.groupId, doc.role], doc.userId); }"
+        },
+        "invitations": {
+          "by_receiver_status": "function (doc) { if (doc.receiverId) emit([doc.receiverId, doc.status], {id: doc._id, senderId: doc.senderId, type: doc.type, objectId: doc.objectId, createdAt: doc.createdAt}); }",
+          "by_sender": "function (doc) { if (doc.senderId) emit([doc.senderId, doc.createdAt], {id: doc._id, status: doc.status, type: doc.type}); }",
+          "by_object": "function (doc) { if (doc.objectId) emit([doc.objectId, doc.createdAt], doc._id); }"
+        },
+        "activities": {
+          "by_actor_createdAt": "function (doc) { if (doc.actorId) emit([doc.actorId, doc.createdAt], {id: doc._id, verb: doc.verb, objectType: doc.objectType, objectId: doc.objectId, targetId: doc.targetId}); }",
+          "by_verb_createdAt": "function (doc) { if (doc.verb) emit([doc.verb, doc.createdAt], {id: doc._id, actorId: doc.actorId, objectType: doc.objectType}); }",
+          "by_object_createdAt": "function (doc) { if (doc.objectId) emit([doc.objectType, doc.objectId, doc.createdAt], doc._id); }",
+          "by_target_createdAt": "function (doc) { if (doc.targetId) emit([doc.targetId, doc.createdAt], {id: doc._id, verb: doc.verb, actorId: doc.actorId}); }"
+        },
+        "objects": {
+          "by_creator_type_status": "function (doc) { emit([doc.creatorId, doc.type, doc.status], {id: doc._id, attributes: doc.attributes, labels: doc.labels, location: doc.location, mediaIds: doc.mediaIds, createdAt: doc.createdAt}); }",
+          "by_type_status_createdAt": "function (doc) { emit([doc.type, doc.status, doc.createdAt], {id: doc._id, creatorId: doc.creatorId}); }",
+          "by_labels": "function (doc) { if (doc.labels) for (let k in doc.labels) emit([k, doc.labels[k]], doc._id); }",
+          "by_location": "function (doc) { if (doc.location) emit([doc.location.country, doc.location.city, doc.createdAt], doc._id); }"
+        },
+        "media": {
+          "by_owner_createdAt": "function (doc) { if (doc.ownerId) emit([doc.ownerId, doc.createdAt], doc._id); }",
+          "by_asset_type": "function (doc) { if (doc.assetType) emit(doc.assetType, doc._id); }"
+        },
+        "security_events": {
+          "by_user_createdAt": "function (doc) { if (doc.userId) emit([doc.userId, doc.createdAt], {id: doc._id, eventType: doc.eventType}); }",
+          "by_type_createdAt": "function (doc) { emit([doc.eventType, doc.createdAt], doc._id); }"
+        },
+        "sync_state": {
+          "by_platform_lastSync": "function (doc) { if (doc.platform) emit([doc.platform, doc.lastSyncAt], {id: doc._id, status: doc.status}); }"
+        }
+      }
+    },
+    "qdrant": {
+      "scheme": "http",
+      "host": "127.0.0.1",
+      "port": 6333,
+      "apiKey": "",
+      "collections": [
+        {
+          "id": "motorsocial_users",
+          "size": 384,
+          "distance": "Cosine",
+          "payloadIndexes": [
+            {"field": "creatorId", "type": "keyword"},
+            {"field": "type", "type": "keyword"},
+            {"field": "status", "type": "keyword"},
+            {"field": "visibility", "type": "keyword"},
+            {"field": "location.country", "type": "keyword"},
+            {"field": "location.city", "type": "keyword"},
+            {"field": "createdAt", "type": "integer"}
+          ]
+        },
+        {
+          "id": "motorsocial_objects",
+          "size": 384,
+          "distance": "Cosine",
+          "payloadIndexes": [
+            {"field": "creatorId", "type": "keyword"},
+            {"field": "type", "type": "keyword"},
+            {"field": "status", "type": "keyword"},
+            {"field": "labels.*", "type": "keyword"},
+            {"field": "location.country", "type": "keyword"},
+            {"field": "location.city", "type": "keyword"},
+            {"field": "createdAt", "type": "integer"}
+          ]
+        },
+        {
+          "id": "motorsocial_activities",
+          "size": 384,
+          "distance": "Cosine",
+          "payloadIndexes": [
+            {"field": "actorId", "type": "keyword"},
+            {"field": "verb", "type": "keyword"},
+            {"field": "objectType", "type": "keyword"},
+            {"field": "createdAt", "type": "integer"}
+          ]
+        }
+      ]
+    },
     "identity": {
       "loginTitle": "Bienvenido",
       "identifierLabel": "Correo",
-      "secretLabel": "Contrase\u00f1a",
+      "secretLabel": "Contraseña",
       "primaryActionText": "Entrar",
       "showRegisterAction": true,
       "showForgotPasswordAction": true,
-      "defaultRoles": [
-        "user"
-      ],
+      "defaultRoles": ["user"],
       "identifierRules": {
         "minLength": 4,
         "maxLength": 254,
@@ -21,26 +135,10 @@
     "navigation": {
       "startRoute": "/catalog",
       "bottomTabs": [
-        {
-          "route": "/catalog",
-          "icon": "home",
-          "label": "Inicio"
-        },
-        {
-          "route": "/activity",
-          "icon": "feed",
-          "label": "Actividad"
-        },
-        {
-          "route": "/social_graph",
-          "icon": "people",
-          "label": "Comunidad"
-        },
-        {
-          "route": "/profile",
-          "icon": "person",
-          "label": "Perfil"
-        }
+        {"route": "/catalog", "icon": "home", "label": "Inicio"},
+        {"route": "/activity", "icon": "feed", "label": "Actividad"},
+        {"route": "/social_graph", "icon": "people", "label": "Comunidad"},
+        {"route": "/profile", "icon": "person", "label": "Perfil"}
       ]
     },
     "location": {
@@ -48,11 +146,9 @@
       "enableMapPicker": true,
       "enablePostalCodeLookup": true,
       "mapProvider": "google",
-      "primaryActionLabel": "Usar mi ubicaci\u00f3n",
-      "searchHint": "Buscar colonia o c\u00f3digo postal",
-      "availableCountries": [
-        "M\u00e9xico"
-      ]
+      "primaryActionLabel": "Usar mi ubicación",
+      "searchHint": "Buscar colonia o código postal",
+      "availableCountries": ["México"]
     },
     "resilience": {
       "connectivityPollIntervalMs": 4000,
@@ -65,13 +161,8 @@
       "enablePagination": true,
       "defaultSort": "created_at_desc",
       "enableExport": true,
-      "exportFormats": [
-        "pdf"
-      ],
-      "allowedOwnerTypes": [
-        "user",
-        "group"
-      ]
+      "exportFormats": ["pdf"],
+      "allowedOwnerTypes": ["user", "group"]
     },
     "media": {
       "maxFileSizeMb": 10,
@@ -82,28 +173,12 @@
       "enableCover": true,
       "enableSlideshow": true,
       "defaultOrderField": "order",
-      "allowedImageFormats": [
-        "jpg",
-        "jpeg",
-        "png",
-        "webp"
-      ],
-      "allowedVideoFormats": [
-        "mp4",
-        "mov",
-        "webm"
-      ]
+      "allowedImageFormats": ["jpg", "jpeg", "png", "webp"],
+      "allowedVideoFormats": ["mp4", "mov", "webm"]
     },
     "activity": {
       "defaultPageSize": 20,
-      "enabledVerbs": [
-        "view",
-        "like",
-        "share",
-        "message",
-        "comment",
-        "price_change"
-      ],
+      "enabledVerbs": ["view", "like", "share", "message", "comment", "price_change"],
       "enableDirectMessages": true,
       "enableShares": true,
       "enableNotifications": true,
@@ -129,14 +204,7 @@
       "mode": "light",
       "enableDarkModeToggle": true,
       "enableCustomThemes": true,
-      "componentCategories": [
-        "colors",
-        "typography",
-        "spacing",
-        "shapes",
-        "elevation",
-        "motion"
-      ]
+      "componentCategories": ["colors", "typography", "spacing", "shapes", "elevation", "motion"]
     }
   }
 }
