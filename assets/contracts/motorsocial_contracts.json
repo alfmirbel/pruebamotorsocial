@@ -3,9 +3,9 @@
   "themeId": "light_default",
   "nodes": {
     "couchdb": {
-      "scheme": "http",
-      "host": "127.0.0.1",
-      "port": 5984,
+      "scheme": "https",
+      "host": "citigov.cloud",
+      "port": 6984,
       "username": "",
       "password": "",
       "prefix": "",
@@ -73,7 +73,7 @@
     },
     "qdrant": {
       "scheme": "http",
-      "host": "127.0.0.1",
+      "host": "100.82.190.54",
       "port": 6333,
       "apiKey": "",
       "collections": [

@@ -18,10 +18,10 @@ class CouchDbConfig {
     this.prefix = '',
   });
 
-  factory CouchDbConfig.local() => const CouchDbConfig(
-        scheme: 'http',
-        host: '127.0.0.1',
-        port: 5984,
+  factory CouchDbConfig.local() => CouchDbConfig(
+        scheme: 'https',
+        host: 'citigov.cloud',
+        port: 6984,
         username: '',
         password: '',
         prefix: '',

@@ -17,7 +17,7 @@ class QdrantConfig {
 
   factory QdrantConfig.local() => const QdrantConfig(
         scheme: 'http',
-        host: '127.0.0.1',
+        host: '100.82.190.54',
         port: 6333,
         apiKey: '',
       );
