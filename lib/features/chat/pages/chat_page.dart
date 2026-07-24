@@ -25,7 +25,8 @@ class ChatPage extends ConsumerWidget {
                         final group = groups[index];
                         return ListTile(
                           title: Text(group.name),
-                          subtitle: Text(group.isPublic ? 'Público' : 'Privado'),
+                          subtitle:
+                              Text(group.isPublic ? 'Público' : 'Privado'),
                         );
                       },
                     ),

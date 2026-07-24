@@ -20,7 +20,8 @@ class MotorSocialApp extends ConsumerWidget {
         useMaterial3: true,
       ),
       darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF415AA9), brightness: Brightness.dark),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF415AA9), brightness: Brightness.dark),
         useMaterial3: true,
       ),
       home: const SocialScaffold(body: AppEntry()),
@@ -33,6 +34,7 @@ class AppEntry extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(body: Center(child: Text('Rama limpia lista para integrar')));
+    return const Scaffold(
+        body: Center(child: Text('Rama limpia lista para integrar')));
   }
 }

@@ -1,4 +1,3 @@
 import 'package:pruebamotorsocial/motorsocial/activity/activity.dart';
 
-abstract class ActivitiesRepository implements ActivityRepository {
-}
+abstract class ActivitiesRepository implements ActivityRepository {}

@@ -22,12 +22,14 @@ class QdrantConfig {
         apiKey: '',
       );
 
-  Uri _build(String path) => Uri(scheme: scheme, host: host, port: port, path: path);
+  Uri _build(String path) =>
+      Uri(scheme: scheme, host: host, port: port, path: path);
 
   Map<String, String> _auth() =>
       apiKey.isEmpty ? const <String, String>{} : {'api-key': apiKey};
 
-  Future<http.Response> request(String method, String path, {Object? body}) async {
+  Future<http.Response> request(String method, String path,
+      {Object? body}) async {
     final uri = _build(path);
     final req = http.Request(method, uri);
     req.headers.addAll(_auth());
@@ -49,7 +51,8 @@ class QdrantRepository {
   QdrantRepository({required this.config, http.Client? client})
       : client = client ?? http.Client();
 
-  Future<bool> createCollection(String collection, int size, String distance) async {
+  Future<bool> createCollection(
+      String collection, int size, String distance) async {
     final res = await config.request(
       'PUT',
       '/collections/$collection',
@@ -60,30 +63,36 @@ class QdrantRepository {
     return res.statusCode == 200 || res.statusCode == 202;
   }
 
-  Future<bool> ensureCollection(String collection, int size, String distance) async {
+  Future<bool> ensureCollection(
+      String collection, int size, String distance) async {
     final res = await config.request('GET', '/collections/$collection');
     if (res.statusCode == 200) return true;
     return await createCollection(collection, size, distance);
   }
 
-  Future<void> upsertPoints(String collection, Map<String, dynamic> payload) async {
+  Future<void> upsertPoints(
+      String collection, Map<String, dynamic> payload) async {
     final res = await config.request(
       'PUT',
       '/collections/$collection/points',
       body: payload,
     );
     if (res.statusCode != 200 && res.statusCode != 202) {
-      throw Exception('Qdrant ${res.statusCode}: ${res.reasonPhrase}\n${res.body}');
+      throw Exception(
+          'Qdrant ${res.statusCode}: ${res.reasonPhrase}\n${res.body}');
     }
   }
 
-  Future<Map<String, dynamic>> search(String collection, Map<String, dynamic> body) async {
+  Future<Map<String, dynamic>> search(
+      String collection, Map<String, dynamic> body) async {
     final res = await config.request(
       'POST',
       '/collections/$collection/points/search',
       body: body,
     );
-    if (res.statusCode == 200) return jsonDecode(res.body) as Map<String, dynamic>;
-    throw Exception('Qdrant ${res.statusCode}: ${res.reasonPhrase}\n${res.body}');
+    if (res.statusCode == 200)
+      return jsonDecode(res.body) as Map<String, dynamic>;
+    throw Exception(
+        'Qdrant ${res.statusCode}: ${res.reasonPhrase}\n${res.body}');
   }
 }

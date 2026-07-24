@@ -23,7 +23,10 @@ Future<void> main() async {
         "reinitialize(config, activityRepository, databaseModule)",
         "motorSocialBridgeProvider Riverpod"
       ],
-      "authentication": {"owned": false, "delegates_to": ["SocialIdentityEngine", "AuthRepository"]}
+      "authentication": {
+        "owned": false,
+        "delegates_to": ["SocialIdentityEngine", "AuthRepository"]
+      }
     },
     {
       "id": "MotorSocialBridgeNotifier",
@@ -34,7 +37,10 @@ Future<void> main() async {
         "Gestiona ciclo de vida global del bridge",
         "Reinicializa componentes en caliente"
       ],
-      "skills": ["Riverpod NotifierProvider", "Swap de config y motor en runtime"],
+      "skills": [
+        "Riverpod NotifierProvider",
+        "Swap de config y motor en runtime"
+      ],
       "authentication": {"owned": false, "inherits_from": "MotorSocialBridge"}
     },
     {
@@ -56,7 +62,13 @@ Future<void> main() async {
       "authentication": {
         "owned": true,
         "mechanism": "JWT / generic token",
-        "state_fields": ["accessToken", "refreshToken", "userId", "role", "availableRoles"],
+        "state_fields": [
+          "accessToken",
+          "refreshToken",
+          "userId",
+          "role",
+          "availableRoles"
+        ],
         "repository_required": "AuthRepository"
       }
     },
@@ -100,11 +112,7 @@ Future<void> main() async {
       "type": "domain",
       "path": "../motorsocial/lib/activity/engine/activity_engine.dart",
       "name": "ActivityEngine",
-      "capabilities": [
-        "Feed unificado",
-        "Reacciones y DM",
-        "Notificaciones"
-      ],
+      "capabilities": ["Feed unificado", "Reacciones y DM", "Notificaciones"],
       "skills": [
         "Verbs: view, like, share, message, comment, price_change",
         "ActivityQuery filtering",
@@ -123,7 +131,11 @@ Future<void> main() async {
         "Tracking de dispositivo",
         "Rate limiting"
       ],
-      "skills": ["onLogin hook", "onSuspiciousActivity hook", "SecurityRepository emitEvent"],
+      "skills": [
+        "onLogin hook",
+        "onSuspiciousActivity hook",
+        "SecurityRepository emitEvent"
+      ],
       "authentication": {"owned": false, "binds_to": "userId"}
     },
     {
@@ -131,7 +143,10 @@ Future<void> main() async {
       "type": "domain",
       "path": "../motorsocial/lib/design/engine/design_engine.dart",
       "name": "DesignEngine",
-      "capabilities": ["Temas visuales parametrizados", "Tokens de diseño configurables"],
+      "capabilities": [
+        "Temas visuales parametrizados",
+        "Tokens de diseño configurables"
+      ],
       "skills": ["DesignTokenSet", "ThemeRepository"],
       "authentication": {"owned": false, "protected_by": "external_session"}
     },
@@ -145,7 +160,10 @@ Future<void> main() async {
         "Lookup de código postal",
         "Selector de ubicación"
       ],
-      "skills": ["GPS habilitado por LocationContract", "Map provider configurable"],
+      "skills": [
+        "GPS habilitado por LocationContract",
+        "Map provider configurable"
+      ],
       "authentication": {"owned": false}
     },
     {
@@ -177,7 +195,11 @@ Future<void> main() async {
         "Qdrant vectorial",
         "Memoria RAM (demo)"
       ],
-      "skills": ["inMemory() / fromConfig", "Design docs CouchDB", "Colecciones Qdrant con índices payload"],
+      "skills": [
+        "inMemory() / fromConfig",
+        "Design docs CouchDB",
+        "Colecciones Qdrant con índices payload"
+      ],
       "authentication": {
         "owned": true,
         "mode": {"demo": "inMemory", "production": "CouchDB + Qdrant"},
@@ -246,7 +268,8 @@ Future<void> main() async {
   };
 
   final jsonPath = '${docsDir.path}/AGENT_GUIDE.json';
-  await File(jsonPath).writeAsString(const JsonEncoder.withIndent('  ').convert(output));
+  await File(jsonPath)
+      .writeAsString(const JsonEncoder.withIndent('  ').convert(output));
   print('WROTE $jsonPath');
 
   try {

@@ -9,8 +9,8 @@ class FeedPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activities = ref.watch(activityRepositoryProvider).recentFeed(
-      const ActivityQuery(limit: 10),
-    );
+          const ActivityQuery(limit: 10),
+        );
 
     return Scaffold(
       appBar: AppBar(title: const Text('Actividad')),
