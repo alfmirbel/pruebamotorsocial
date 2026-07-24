@@ -17,8 +17,7 @@ class CatalogPage extends ConsumerWidget {
         children: [
           const ListTile(
             title: Text('Catálogo social integrado'),
-            subtitle:
-                Text('Caso de uso aislado: catálogo en modo staging.'),
+            subtitle: Text('Caso de uso aislado: catálogo en modo staging.'),
           ),
           const Padding(
             padding: EdgeInsets.all(16.0),

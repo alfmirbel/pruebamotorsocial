@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 Future<void> main() async {
-  final defines = jsonDecode(await File('defines.json').readAsString()) as Map<String, dynamic>;
+  final defines = jsonDecode(await File('defines.json').readAsString())
+      as Map<String, dynamic>;
   final url = defines['COUCHDB_URL'] as String;
   final user = defines['COUCHDB_USER'] as String;
   final password = defines['COUCHDB_PASSWORD'] as String;
@@ -37,6 +38,9 @@ Future<void> main() async {
   }
 
   final all = await http.get(Uri.parse('$url/_all_dbs'), headers: headers);
-  final list = (jsonDecode(all.body) as List<dynamic>).whereType<String>().where((e) => e.startsWith('motorsocial_')).toList();
+  final list = (jsonDecode(all.body) as List<dynamic>)
+      .whereType<String>()
+      .where((e) => e.startsWith('motorsocial_'))
+      .toList();
   print('FOUND DBs: ${list.length}');
 }

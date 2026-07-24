@@ -84,7 +84,8 @@ class CouchDbRepository {
 
   Future<Map<String, dynamic>> get(String db, String id) async {
     final res = await config.request('GET', '$db/$id');
-    if (res.statusCode == 200) return jsonDecode(res.body) as Map<String, dynamic>;
+    if (res.statusCode == 200)
+      return jsonDecode(res.body) as Map<String, dynamic>;
     throw _couchError(res);
   }
 
@@ -112,8 +113,10 @@ class CouchDbRepository {
     final qs = params.isEmpty
         ? ''
         : '?${params.entries.map((e) => '${e.key}=${Uri.encodeComponent(e.value)}').join('&')}';
-    final res = await config.request('GET', '$db/_design/$design/_view/$view$qs');
-    if (res.statusCode == 200) return jsonDecode(res.body) as Map<String, dynamic>;
+    final res =
+        await config.request('GET', '$db/_design/$design/_view/$view$qs');
+    if (res.statusCode == 200)
+      return jsonDecode(res.body) as Map<String, dynamic>;
     throw _couchError(res);
   }
 
@@ -133,14 +136,19 @@ class CouchDbRepository {
   }
 
   Future<Map<String, dynamic>> query(String db, String view,
-      {String? key, String? startKey, String? endKey, bool descending = false, int? limit}) async {
+      {String? key,
+      String? startKey,
+      String? endKey,
+      bool descending = false,
+      int? limit}) async {
     final params = <String, String>{
       if (key != null) 'key': key,
       if (startKey != null) 'startkey': startKey,
       if (endKey != null) 'endkey': endKey,
       'descending': descending ? 'true' : 'false',
     };
-    return queryView(db, '_design/motorsocial_guide', view, queryParams: params);
+    return queryView(db, '_design/motorsocial_guide', view,
+        queryParams: params);
   }
 
   Exception _couchError(http.Response res) =>

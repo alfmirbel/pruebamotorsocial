@@ -83,9 +83,11 @@ class _BottomNav extends ConsumerWidget {
         NavigationDestination(icon: Icon(Icons.home), label: 'Inicio'),
         NavigationDestination(icon: Icon(Icons.category), label: 'Catálogo'),
         NavigationDestination(icon: Icon(Icons.feed), label: 'Actividad'),
-        NavigationDestination(icon: Icon(Icons.chat_bubble_outline), label: 'Comunidad'),
+        NavigationDestination(
+            icon: Icon(Icons.chat_bubble_outline), label: 'Comunidad'),
         NavigationDestination(icon: Icon(Icons.person), label: 'Cuenta'),
-        NavigationDestination(icon: Icon(Icons.account_circle), label: 'Perfil'),
+        NavigationDestination(
+            icon: Icon(Icons.account_circle), label: 'Perfil'),
       ],
     );
   }
@@ -96,4 +98,3 @@ class _BottomNav extends ConsumerWidget {
     return v;
   }
 }
-
