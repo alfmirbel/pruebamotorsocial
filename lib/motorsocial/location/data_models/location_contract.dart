@@ -1,79 +1,59 @@
-class LocationContract {
-  final bool enableGeolocation;
-  final bool enablePostalCode;
-  final int defaultLocalityLimit;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const LocationContract({
-    this.enableGeolocation = true,
-    this.enablePostalCode = true,
-    this.defaultLocalityLimit = 20,
-  });
+part 'location_contract.freezed.dart';
+part 'location_contract.g.dart';
+
+/// Configuración del módulo de geolocalización.
+@freezed
+abstract class LocationContract with _$LocationContract {
+  const factory LocationContract({
+    @Default(true) bool enableGeolocation,
+    @Default(true) bool enablePostalCode,
+    @Default(20) int defaultLocalityLimit,
+  }) = _LocationContract;
 
   factory LocationContract.fromJson(Map<String, dynamic> json) =>
-      LocationContract(
-        enableGeolocation: json['enableGeolocation'] as bool? ?? true,
-        enablePostalCode: json['enablePostalCode'] as bool? ?? true,
-        defaultLocalityLimit: (json['defaultLocalityLimit'] as int?) ?? 20,
-      );
+      _$LocationContractFromJson(json);
 }
 
-class SocialPlace {
-  final String id;
-  final String name;
-  final double? latitude;
-  final double? longitude;
-  final String? postalCode;
+/// Lugar geográfico persistido en `motorsocial_places`.
+///
+/// Doc CouchDB con prefijo `place:<uuid>`.
+@freezed
+abstract class SocialPlace with _$SocialPlace {
+  const factory SocialPlace({
+    required String id,
+    required String name,
+    double? latitude,
+    double? longitude,
+    String? postalCode,
+  }) = _SocialPlace;
 
-  const SocialPlace({
-    required this.id,
-    required this.name,
-    this.latitude,
-    this.longitude,
-    this.postalCode,
-  });
-
-  factory SocialPlace.fromJson(Map<String, dynamic> json) => SocialPlace(
-        id: json['id'] as String? ?? json['_id'] as String? ?? '',
-        name: json['name'] as String? ?? '',
-        latitude: (json['latitude'] as num?)?.toDouble(),
-        longitude: (json['longitude'] as num?)?.toDouble(),
-        postalCode: json['postalCode'] as String?,
-      );
+  factory SocialPlace.fromJson(Map<String, dynamic> json) =>
+      _$SocialPlaceFromJson(json);
 }
 
-class PostalCodeLookupResult {
-  final String postalCode;
-  final List<LocalityEntry> localities;
-
-  const PostalCodeLookupResult({
-    required this.postalCode,
-    this.localities = const <LocalityEntry>[],
-  });
+/// Resultado de consulta de código postal a API externa.
+@freezed
+abstract class PostalCodeLookupResult with _$PostalCodeLookupResult {
+  const factory PostalCodeLookupResult({
+    required String postalCode,
+    @Default(<LocalityEntry>[]) List<LocalityEntry> localities,
+  }) = _PostalCodeLookupResult;
 
   factory PostalCodeLookupResult.fromJson(Map<String, dynamic> json) =>
-      PostalCodeLookupResult(
-        postalCode: json['postalCode'] as String? ?? '',
-        localities: (json['localities'] as List<dynamic>? ?? const <dynamic>[])
-            .whereType<Map<String, dynamic>>()
-            .map(LocalityEntry.fromJson)
-            .toList(),
-      );
+      _$PostalCodeLookupResultFromJson(json);
 }
 
-class LocalityEntry {
-  final String name;
-  final String state;
-  final String country;
+/// Entrada individual de localidad (colonia/municipio/estado).
+@freezed
+abstract class LocalityEntry with _$LocalityEntry {
+  const factory LocalityEntry({
+    required String name,
+    required String state,
+    required String country,
+  }) = _LocalityEntry;
 
-  const LocalityEntry({
-    required this.name,
-    required this.state,
-    required this.country,
-  });
-
-  factory LocalityEntry.fromJson(Map<String, dynamic> json) => LocalityEntry(
-        name: json['name'] as String? ?? '',
-        state: json['state'] as String? ?? '',
-        country: json['country'] as String? ?? '',
-      );
+  factory LocalityEntry.fromJson(Map<String, dynamic> json) =>
+      _$LocalityEntryFromJson(json);
 }

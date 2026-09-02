@@ -1,3 +1,5 @@
+export 'data_models/social_activity.dart';
+export 'data_models/activity_query.dart';
 export 'data_models/activity_contract.dart';
 export 'providers/feed_notifier.dart';
 export 'providers/conversation_notifier.dart';

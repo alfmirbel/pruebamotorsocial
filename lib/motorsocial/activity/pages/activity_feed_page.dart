@@ -6,6 +6,15 @@ class ActivityFeedPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(body: Center(child: Text('Feed')));
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text('Actividad'),
+      ),
+      body: const Center(child: Text('Feed')),
+    );
   }
 }

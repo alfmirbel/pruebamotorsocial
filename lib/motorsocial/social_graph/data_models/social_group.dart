@@ -1,13 +1,20 @@
-class SocialGroup {
-  final String id;
-  final String name;
-  final List<String> memberIds;
-  final bool isPublic;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const SocialGroup({
-    required this.id,
-    required this.name,
-    this.memberIds = const <String>[],
-    this.isPublic = true,
-  });
+part 'social_group.freezed.dart';
+part 'social_group.g.dart';
+
+/// Grupo social con miembros. Persistido en `motorsocial_grupos`.
+///
+/// Doc CouchDB con prefijo `grupo:<uuid>`.
+@freezed
+abstract class SocialGroup with _$SocialGroup {
+  const factory SocialGroup({
+    required String id,
+    required String name,
+    @Default(<String>[]) List<String> memberIds,
+    @Default(true) bool isPublic,
+  }) = _SocialGroup;
+
+  factory SocialGroup.fromJson(Map<String, dynamic> json) =>
+      _$SocialGroupFromJson(json);
 }

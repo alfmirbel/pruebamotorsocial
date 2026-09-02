@@ -1,6 +1,5 @@
 export 'data_models/social_object.dart';
 export 'data_models/catalog_query.dart';
-export 'data_models/social_object_page.dart' hide SocialObjectPage;
 export 'providers/catalog_notifier.dart';
 export 'providers/object_detail_notifier.dart';
 export 'providers/export_notifier.dart';

@@ -1,11 +1,16 @@
-class RateLimitState {
-  final int remaining;
-  final DateTime? resetAt;
-  const RateLimitState({this.remaining = -1, this.resetAt});
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  RateLimitState copyWith({int? remaining, DateTime? resetAt}) {
-    return RateLimitState(
-        remaining: remaining ?? this.remaining,
-        resetAt: resetAt ?? this.resetAt);
-  }
+part 'rate_limit_state.freezed.dart';
+part 'rate_limit_state.g.dart';
+
+/// Estado de límite de tasa (rate limit) tras una solicitud HTTP.
+@freezed
+abstract class RateLimitState with _$RateLimitState {
+  const factory RateLimitState({
+    @Default(-1) int remaining,
+    DateTime? resetAt,
+  }) = _RateLimitState;
+
+  factory RateLimitState.fromJson(Map<String, dynamic> json) =>
+      _$RateLimitStateFromJson(json);
 }

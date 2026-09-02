@@ -11,7 +11,13 @@ class LoginPage extends ConsumerWidget {
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
     return Scaffold(
-      appBar: AppBar(title: const Text('Ingresar')),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text('Ingresar'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -24,7 +30,7 @@ class LoginPage extends ConsumerWidget {
                 decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true),
             const SizedBox(height: 16),
-            ElevatedButton(
+            FilledButton(
               onPressed: () async {
                 final repo = ref.read(authRepositoryProvider);
                 final state = await repo.signIn(

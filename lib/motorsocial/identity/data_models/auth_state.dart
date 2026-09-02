@@ -1,32 +1,20 @@
-class AuthState {
-  final bool isUserDataLoaded;
-  final String? errorCode;
-  final String? errorMessage;
-  final bool isAuthenticated;
-  final String? userId;
-  final String? accessToken;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const AuthState(
-      {this.isUserDataLoaded = false,
-      this.errorCode,
-      this.errorMessage,
-      this.isAuthenticated = false,
-      this.userId,
-      this.accessToken});
+part 'auth_state.freezed.dart';
+part 'auth_state.g.dart';
 
-  AuthState copyWith(
-      {bool? isUserDataLoaded,
-      String? errorCode,
-      String? errorMessage,
-      bool? isAuthenticated,
-      String? userId,
-      String? accessToken}) {
-    return AuthState(
-        isUserDataLoaded: isUserDataLoaded ?? this.isUserDataLoaded,
-        errorCode: errorCode ?? this.errorCode,
-        errorMessage: errorMessage ?? this.errorMessage,
-        isAuthenticated: isAuthenticated ?? this.isAuthenticated,
-        userId: userId ?? this.userId,
-        accessToken: accessToken ?? this.accessToken);
-  }
+/// Estado de sesión y autenticación en memoria.
+@freezed
+abstract class AuthState with _$AuthState {
+  const factory AuthState({
+    @Default(false) bool isUserDataLoaded,
+    @Default(null) String? errorCode,
+    @Default(null) String? errorMessage,
+    @Default(false) bool isAuthenticated,
+    @Default(null) String? userId,
+    @Default(null) String? accessToken,
+  }) = _AuthState;
+
+  factory AuthState.fromJson(Map<String, dynamic> json) =>
+      _$AuthStateFromJson(json);
 }

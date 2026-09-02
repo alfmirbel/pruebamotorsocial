@@ -1,27 +1,20 @@
-class RoleProfile {
-  final String key;
-  final String name;
-  final List<String> permissions;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const RoleProfile({
-    required this.key,
-    required this.name,
-    this.permissions = const <String>[],
-  });
+part 'role_profile.freezed.dart';
+part 'role_profile.g.dart';
 
-  factory RoleProfile.fromJson(Map<String, dynamic> json) => RoleProfile(
-        key: json['key'] as String? ?? '',
-        name: json['name'] as String? ?? '',
-        permissions: (json['permissions'] as List<dynamic>? ?? const [])
-            .whereType<String>()
-            .toList(),
-      );
+/// Perfil de rol con lista de permisos. Persistido embebido en `motorsocial_usuarios`.
+@freezed
+abstract class RoleProfile with _$RoleProfile {
+  const factory RoleProfile({
+    required String key,
+    required String name,
+    @Default(<String>[]) List<String> permissions,
+  }) = _RoleProfile;
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'key': key,
-        'name': name,
-        'permissions': permissions,
-      };
-
+  /// Verifica si este rol incluye un permiso concreto.
   bool hasPermission(String permission) => permissions.contains(permission);
+
+  factory RoleProfile.fromJson(Map<String, dynamic> json) =>
+      _$RoleProfileFromJson(json);
 }

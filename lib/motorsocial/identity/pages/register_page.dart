@@ -28,7 +28,7 @@ class RegisterPage extends ConsumerWidget {
                 controller: displayNameController,
                 decoration: const InputDecoration(labelText: 'Nombre')),
             const SizedBox(height: 16),
-            ElevatedButton(
+            FilledButton(
               onPressed: () async {
                 final repo = ref.read(authRepositoryProvider);
                 final state = await repo.register(identifierController.text,

@@ -1,26 +1,23 @@
-class SocialRelationship {
-  final String id;
-  final String actorId;
-  final String targetId;
-  final String type;
-  final DateTime createdAt;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const SocialRelationship({
-    required this.id,
-    required this.actorId,
-    required this.targetId,
-    required this.type,
-    required this.createdAt,
-  });
+part 'social_relationship.freezed.dart';
+part 'social_relationship.g.dart';
+
+/// Relación dirigida entre dos usuarios. Persistida en `motorsocial_social_graph`.
+///
+/// Doc CouchDB con prefijo `relationship:<uuid>`.
+/// El campo de negocio `type` se serializa como `relationshipType` en JSON
+/// para evitar colisión con el discriminador CouchDB `type`.
+@freezed
+abstract class SocialRelationship with _$SocialRelationship {
+  const factory SocialRelationship({
+    required String id,
+    required String actorId,
+    required String targetId,
+    @Default('contact') String type,
+    required DateTime createdAt,
+  }) = _SocialRelationship;
 
   factory SocialRelationship.fromJson(Map<String, dynamic> json) =>
-      SocialRelationship(
-        id: json['id'] as String? ?? json['_id'] as String? ?? '',
-        actorId: json['actorId'] as String? ?? '',
-        targetId: json['targetId'] as String? ?? '',
-        type: json['type'] as String? ?? 'contact',
-        createdAt: json['createdAt'] != null
-            ? DateTime.parse(json['createdAt'] as String)
-            : DateTime.now(),
-      );
+      _$SocialRelationshipFromJson(json);
 }

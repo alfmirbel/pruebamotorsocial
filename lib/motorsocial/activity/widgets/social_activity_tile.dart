@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../data_models/activity_contract.dart';
+import '../data_models/social_activity.dart';
 
 class SocialActivityTile extends StatelessWidget {
   final SocialActivity activity;

@@ -133,7 +133,7 @@
       }
     },
     "navigation": {
-      "startRoute": "/catalog",
+      "startRoute": "/",
       "bottomTabs": [
         {"route": "/catalog", "icon": "home", "label": "Inicio"},
         {"route": "/activity", "icon": "feed", "label": "Actividad"},

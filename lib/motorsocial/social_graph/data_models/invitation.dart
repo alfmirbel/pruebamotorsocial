@@ -1,25 +1,21 @@
-class Invitation {
-  final String id;
-  final String senderId;
-  final String recipientId;
-  final String status;
-  final DateTime createdAt;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const Invitation({
-    required this.id,
-    required this.senderId,
-    required this.recipientId,
-    this.status = 'pending',
-    required this.createdAt,
-  });
+part 'invitation.freezed.dart';
+part 'invitation.g.dart';
 
-  factory Invitation.fromJson(Map<String, dynamic> json) => Invitation(
-        id: json['id'] as String? ?? json['_id'] as String? ?? '',
-        senderId: json['senderId'] as String? ?? '',
-        recipientId: json['recipientId'] as String? ?? '',
-        status: json['status'] as String? ?? 'pending',
-        createdAt: json['createdAt'] != null
-            ? DateTime.parse(json['createdAt'] as String)
-            : DateTime.now(),
-      );
+/// Invitación de usuario a usuario. Persistida en `motorsocial_invitations`.
+///
+/// Doc CouchDB con prefijo `invitation:<uuid>`.
+@freezed
+abstract class Invitation with _$Invitation {
+  const factory Invitation({
+    required String id,
+    required String senderId,
+    required String recipientId,
+    @Default('pending') String status,
+    required DateTime createdAt,
+  }) = _Invitation;
+
+  factory Invitation.fromJson(Map<String, dynamic> json) =>
+      _$InvitationFromJson(json);
 }

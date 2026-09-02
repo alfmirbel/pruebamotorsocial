@@ -1,10 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AppConfig {
-  final String appName;
-  const AppConfig({required this.appName});
+class SessionNotifier extends Notifier<Map<String, String?>> {
+  @override
+  Map<String, String?> build() => <String, String?>{};
+
+  void setSession(Map<String, String?> value) {
+    state = value;
+  }
 }
 
-final appConfigProvider = Provider<AppConfig>((_) {
-  return const AppConfig(appName: 'MotorSocial');
-});
+final sessionProvider = NotifierProvider<SessionNotifier, Map<String, String?>>(
+  SessionNotifier.new,
+);
