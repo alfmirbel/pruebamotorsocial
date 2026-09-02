@@ -1,36 +1,24 @@
-class SessionData {
-  final String key;
-  final String token;
-  final DateTime expiresAt;
-  final Map<String, dynamic> payload;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const SessionData({
-    required this.key,
-    required this.token,
-    required this.expiresAt,
-    this.payload = const <String, dynamic>{},
-  });
+part 'session_data.freezed.dart';
+part 'session_data.g.dart';
 
-  factory SessionData.fromJson(Map<String, dynamic> json) => SessionData(
-        key: json['key'] as String? ?? json['sessionKey'] ?? '',
-        token: json['token'] as String? ?? json['accessToken'] ?? '',
-        expiresAt: json['expiresAt'] is String
-            ? DateTime.tryParse(json['expiresAt'] as String) ??
-                DateTime.now().add(const Duration(hours: 1))
-            : DateTime.now().add(const Duration(hours: 1)),
-        payload: Map<String, dynamic>.from(
-          json['payload'] is Map<String, dynamic>
-              ? json['payload'] as Map<String, dynamic>
-              : <String, dynamic>{},
-        ),
-      );
+/// Datos de sesión persistidos en secure storage (móvil) / shared_preferences (web).
+@freezed
+abstract class SessionData with _$SessionData {
+  const factory SessionData({
+    required String key,
+    required String token,
+    required DateTime expiresAt,
+    @Default(<String, dynamic>{}) Map<String, dynamic> payload,
+  }) = _SessionData;
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'key': key,
-        'token': token,
-        'expiresAt': expiresAt.toIso8601String(),
-        'payload': payload,
-      };
+  factory SessionData.fromJson(Map<String, dynamic> json) =>
+      _$SessionDataFromJson(json);
+}
 
+/// Métodos derivados de [SessionData].
+extension SessionDataX on SessionData {
+  /// Indica si la sesión ya expiró respecto al momento actual.
   bool get isExpired => DateTime.now().isAfter(expiresAt);
 }

@@ -1,31 +1,9 @@
-class ActivityQuery {
-  final String? actorId;
-  final int limit;
-  const ActivityQuery({this.actorId, this.limit = 20});
-}
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class SocialActivity {
-  final String id;
-  final String actorId;
-  final String actorName;
-  final String verb;
-  final String objectType;
-  final String objectId;
-  final Map<String, dynamic> payload;
-  final int createdAt;
+part 'activity_contract.freezed.dart';
 
-  const SocialActivity({
-    required this.id,
-    required this.actorId,
-    required this.actorName,
-    required this.verb,
-    required this.objectType,
-    required this.objectId,
-    this.payload = const <String, dynamic>{},
-    required this.createdAt,
-  });
-}
-
-class ActivityContract {
-  const ActivityContract();
+/// Contrato de configuración del motor de actividades.
+@freezed
+abstract class ActivityContract with _$ActivityContract {
+  const factory ActivityContract() = _ActivityContract;
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
+import 'package:dio/dio.dart';
 
 class CouchDbConfig {
   final String url;
@@ -13,32 +14,46 @@ class CouchDbConfig {
   });
 }
 
+/// Repositorio CouchDB sobre Dio.
+///
+/// Conserva la superficie pública anterior (`ping`, `ensureDatabase`, `get`,
+/// `put`, `delete`, `queryView`) de modo que los consumidores no cambian.
+/// Internamente usa [Dio] en lugar de `package:http`, heredando así el
+/// `JwtInterceptor` y los reintentos inteligentes cuando se inyecta la
+/// instancia compartida de `dioProvider`.
 class CouchDbRepository {
   final CouchDbConfig config;
-  final http.Client client;
+  final Dio _dio;
 
-  CouchDbRepository({required this.config, http.Client? client})
-      : client = client ?? http.Client();
-
-  Uri _uri(String db, [String? docId]) {
-    final base = '${config.url.trim().replaceAll(RegExp(r'/+$'), '')}/$db';
-    return docId == null ? Uri.parse(base) : Uri.parse('$base/$docId');
+  CouchDbRepository({required this.config, Dio? dio}) : _dio = dio ?? Dio() {
+    // Base sin trailing slash; el resto de rutas son relativas al baseUrl.
+    _dio.options
+      ..baseUrl = config.url.trim().replaceAll(RegExp(r'/+$'), '')
+      ..headers = _headers()
+      ..validateStatus =
+          (status) => status != null; // no lanzar: evaluamos statusCode.
   }
 
+  String _path(String db, [String? docId]) =>
+      docId == null ? '/$db' : '/$db/$docId';
+
   Future<bool> ping() async {
-    final res = await client.get(
-      _uri(''),
-      headers: _headers(),
-    );
-    return res.statusCode == 200;
+    try {
+      final res = await _dio.get<dynamic>('/');
+      return res.statusCode == 200;
+    } on DioException {
+      return false;
+    }
   }
 
   Future<bool> createDatabase(String db) async {
-    final res = await client.put(
-      _uri(db),
-      headers: _headers(),
-    );
-    return res.statusCode == 201 || res.statusCode == 412;
+    try {
+      final res = await _dio.put<dynamic>(_path(db));
+      return res.statusCode == 201 || res.statusCode == 412;
+    } on DioException catch (e) {
+      final code = e.response?.statusCode ?? 0;
+      return code == 201 || code == 412;
+    }
   }
 
   Future<bool> ensureDatabase(String db) async {
@@ -48,37 +63,39 @@ class CouchDbRepository {
   }
 
   Future<Map<String, dynamic>?> get(String db, String id) async {
-    final res = await client.get(
-      _uri(db, id),
-      headers: _headers(),
-    );
-    if (res.statusCode == 200) {
-      return jsonDecode(res.body) as Map<String, dynamic>;
+    try {
+      final res = await _dio.get<dynamic>(_path(db, id));
+      if (res.statusCode == 200) {
+        return _decodeMap(res.data);
+      }
+      return null;
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 404) return null;
+      rethrow;
     }
-    return null;
   }
 
   Future<String> put(String db, Map<String, dynamic> doc) async {
     final existingId = doc['_id'] as String?;
-    final method = existingId == null ? httpMethodPost : httpMethodPut;
-    final uri = existingId == null ? _uri(db) : _uri(db, existingId);
-    final res = await (method == httpMethodPost
-        ? client.post(uri, headers: _headers(), body: jsonEncode(doc))
-        : client.put(uri, headers: _headers(), body: jsonEncode(doc)));
+    final body = jsonEncode(doc);
+    Response<dynamic> res;
+    if (existingId == null) {
+      res = await _dio.post<dynamic>(_path(db), data: body);
+    } else {
+      res = await _dio.put<dynamic>(_path(db, existingId), data: body);
+    }
 
-    if (res.statusCode == 201 || res.statusCode == 200) {
-      final map = jsonDecode(res.body) as Map<String, dynamic>;
+    final code = res.statusCode ?? 0;
+    if (code == 201 || code == 200) {
+      final map = _decodeMap(res.data) ?? <String, dynamic>{};
       return (map['id'] ?? existingId ?? '') as String;
     }
-    throw CouchDbException('PUT failed: ${res.statusCode} ${res.body}');
+    throw CouchDbException('PUT failed: $code ${res.data?.toString() ?? ''}');
   }
 
   Future<void> delete(String db, String id, String rev) async {
-    final res = await client.delete(
-      _uri(db, '$id?rev=$rev'),
-      headers: _headers(),
-    );
-    if (res.statusCode != 200) {
+    final res = await _dio.delete<dynamic>(_path(db, '$id?rev=$rev'));
+    if ((res.statusCode ?? 0) != 200) {
       throw CouchDbException('DELETE failed: ${res.statusCode}');
     }
   }
@@ -93,7 +110,7 @@ class CouchDbRepository {
     bool descending = false,
     int? limit,
   }) async {
-    final params = <String, String>{
+    final query = <String, String>{
       'include_docs': 'true',
       if (key != null) 'key': key,
       if (startKey != null) 'startKey': startKey,
@@ -102,12 +119,12 @@ class CouchDbRepository {
       if (limit != null) 'limit': '$limit',
     };
 
-    final res = await client.get(
-      _uri(db, '_design/$design/_view/$view').replace(queryParameters: params),
-      headers: _headers(),
+    final res = await _dio.get<dynamic>(
+      _path(db, '_design/$design/_view/$view'),
+      queryParameters: query,
     );
-    if (res.statusCode == 200) {
-      return jsonDecode(res.body) as Map<String, dynamic>;
+    if ((res.statusCode ?? 0) == 200) {
+      return _decodeMap(res.data) ?? <String, dynamic>{};
     }
     throw CouchDbException('queryView failed: ${res.statusCode}');
   }
@@ -122,7 +139,22 @@ class CouchDbRepository {
     };
   }
 
-  void close() => client.close();
+  Map<String, dynamic>? _decodeMap(dynamic body) {
+    if (body == null) return null;
+    if (body is Map<String, dynamic>) return body;
+    if (body is String) {
+      try {
+        final decoded = jsonDecode(body);
+        return decoded is Map<String, dynamic> ? decoded : null;
+      } catch (_) {
+        return null;
+      }
+    }
+    if (body is Map) return Map<String, dynamic>.from(body);
+    return null;
+  }
+
+  void close() => _dio.close();
 }
 
 class CouchDbException implements Exception {
@@ -132,6 +164,3 @@ class CouchDbException implements Exception {
   @override
   String toString() => 'CouchDbException: $message';
 }
-
-const httpMethodPost = 'POST';
-const httpMethodPut = 'PUT';

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 @immutable
 class SocialAppConfig {
@@ -49,20 +52,57 @@ class SocialAppConfig {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        'appName': appName,
-        'themeId': themeId,
-        'identity': identity,
-        'navigation': navigation,
-        'location': location,
-        'media': media,
-        'catalog': catalog,
-        'activity': activity,
-        'modules': modules,
-        'useStubRepositories': useStubRepositories,
-        if (couchdb != null) 'couchdb': couchdb!.toJson(),
-        if (qdrant != null) 'qdrant': qdrant!.toJson(),
-      };
+  factory SocialAppConfig.defaults() => const SocialAppConfig(
+        appName: 'MotorSocial',
+        themeId: 'light_default',
+        identity: <String, dynamic>{},
+        navigation: <String, dynamic>{},
+        location: <String, dynamic>{},
+        catalog: <String, dynamic>{},
+        media: <String, dynamic>{},
+        activity: <String, dynamic>{},
+        modules: <String>[],
+        useStubRepositories: true,
+        couchdb: null,
+        qdrant: null,
+      );
+
+Map<String, dynamic> toJson() => {
+         'appName': appName,
+         'themeId': themeId,
+         'identity': identity,
+         'navigation': navigation,
+         'location': location,
+         'media': media,
+         'catalog': catalog,
+         'activity': activity,
+         'modules': modules,
+         'useStubRepositories': useStubRepositories,
+         if (couchdb != null) 'couchdb': couchdb!.toJson(),
+         if (qdrant != null) 'qdrant': qdrant!.toJson(),
+       };
+
+/// Carga la configuración desde el archivo JSON en assets.
+  static Future<SocialAppConfig> loadFromAssets() async {
+    // En una app real, usaríamos rootBundle.loadString
+    // Para simplicidad en este ejemplo, asumimos que el archivo está disponible
+    
+    final String jsonString = await rootBundle.loadString(
+        'assets/contracts/motorsocial_contracts.json');
+    final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+    return SocialAppConfig.fromJson(jsonMap);
+  }
+
+  /// Acceso conveniente a las pestañas de navegación inferior.
+  List<Map<String, dynamic>> get bottomTabs =>
+      navigation['bottomTabs']?.cast<Map<String, dynamic>>() ?? const [];
+
+  /// Acceso conveniente a la ruta de inicio.
+  String get startRoute => navigation['startRoute'] as String? ?? '/';
+
+  /// Lista completa de rutas navegables desde el home.
+  List<Map<String, dynamic>> get appRoutes =>
+      [...bottomTabs, {'route': '/login', 'icon': 'login', 'label': 'Login'}];
 }
 
 @immutable

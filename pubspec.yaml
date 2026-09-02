@@ -11,17 +11,24 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
 
-  flutter_riverpod: ^2.4.9
-  connectivity_plus: ^5.0.2
+  flutter_riverpod: ^3.4.2
+  connectivity_plus: ^7.3.1
   shared_preferences: ^2.2.2
   http: ^1.2.0
   fpdart: ^1.2.0
-  location: ^5.0.3
+  location: ^10.0.2
+  dio: ^5.11.0
+  dio_smart_retry: ^7.0.1
+  flutter_secure_storage: ^11.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
+  build_runner: ^2.4.0
+  freezed: ^3.2.5
+  freezed_annotation: ^3.1.0
+  json_serializable: ^6.8.0
 
 flutter:
   uses-material-design: true

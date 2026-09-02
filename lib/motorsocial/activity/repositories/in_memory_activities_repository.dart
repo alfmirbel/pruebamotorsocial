@@ -1,5 +1,6 @@
-import '../repositories/activity_repository.dart';
-import '../data_models/activity_contract.dart';
+import '../data_models/social_activity.dart';
+import '../data_models/activity_query.dart';
+import 'activity_repository.dart';
 
 final class InMemoryActivitiesRepository implements ActivityRepository {
   InMemoryActivitiesRepository({List<SocialActivity>? seed})

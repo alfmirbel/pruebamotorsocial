@@ -1,40 +1,41 @@
-class ConnectionStatus {
-  final bool isOnline;
-  final String? connectivityType;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const ConnectionStatus({this.isOnline = false, this.connectivityType});
+part 'connection_status.freezed.dart';
+part 'connection_status.g.dart';
+
+/// Estado de conectividad de red.
+@freezed
+abstract class ConnectionStatus with _$ConnectionStatus {
+  const factory ConnectionStatus({
+    @Default(false) bool isOnline,
+    String? connectivityType,
+  }) = _ConnectionStatus;
 
   factory ConnectionStatus.fromJson(Map<String, dynamic> json) =>
-      ConnectionStatus(
-        isOnline: json['isOnline'] as bool? ?? false,
-        connectivityType: json['connectivityType'] as String?,
-      );
+      _$ConnectionStatusFromJson(json);
 }
 
-class PlatformInfo {
-  final String platform;
-  final String? version;
+/// Información de plataforma (OS, versión).
+@freezed
+abstract class PlatformInfo with _$PlatformInfo {
+  const factory PlatformInfo({
+    required String platform,
+    String? version,
+  }) = _PlatformInfo;
 
-  const PlatformInfo({required this.platform, this.version});
-
-  factory PlatformInfo.fromJson(Map<String, dynamic> json) => PlatformInfo(
-        platform: json['platform'] as String? ?? 'unknown',
-        version: json['version'] as String?,
-      );
+  factory PlatformInfo.fromJson(Map<String, dynamic> json) =>
+      _$PlatformInfoFromJson(json);
 }
 
-class SyncState {
-  final bool isSyncing;
-  final DateTime? lastSyncedAt;
-  final String? error;
+/// Estado del motor de sincronización offline-first.
+@freezed
+abstract class SyncState with _$SyncState {
+  const factory SyncState({
+    @Default(false) bool isSyncing,
+    DateTime? lastSyncedAt,
+    String? error,
+  }) = _SyncState;
 
-  const SyncState({this.isSyncing = false, this.lastSyncedAt, this.error});
-
-  SyncState copyWith({bool? isSyncing, DateTime? lastSyncedAt, String? error}) {
-    return SyncState(
-      isSyncing: isSyncing ?? this.isSyncing,
-      lastSyncedAt: lastSyncedAt ?? this.lastSyncedAt,
-      error: error ?? this.error,
-    );
-  }
+  factory SyncState.fromJson(Map<String, dynamic> json) =>
+      _$SyncStateFromJson(json);
 }

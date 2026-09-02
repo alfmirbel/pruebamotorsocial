@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../data_models/activity_contract.dart';
+import '../data_models/social_activity.dart';
+import '../data_models/activity_query.dart';
 
 class FeedState {
   final AsyncValue<List<SocialActivity>> activities;

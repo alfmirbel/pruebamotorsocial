@@ -23,7 +23,7 @@ class PasswordRecoveryPage extends ConsumerWidget {
             ValueListenableBuilder<bool>(
               valueListenable: isSaving,
               builder: (context, saving, _) {
-                return ElevatedButton(
+                return FilledButton(
                   onPressed: saving
                       ? null
                       : () async {

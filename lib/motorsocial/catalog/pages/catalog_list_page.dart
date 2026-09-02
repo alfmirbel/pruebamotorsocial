@@ -11,10 +11,25 @@ class CatalogListPage extends ConsumerWidget {
     final state = ref.watch(catalogProvider);
     final page = state.page.value;
     if (state.isLoading || page == null) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          title: const Text('Catálogo'),
+        ),
+        body: const Center(child: CircularProgressIndicator()),
+      );
     }
     return Scaffold(
-      appBar: AppBar(title: const Text('Catálogo')),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: const Text('Catálogo'),
+      ),
       body: page.items.isEmpty
           ? const Center(child: Text('Sin resultados'))
           : ListView.builder(
