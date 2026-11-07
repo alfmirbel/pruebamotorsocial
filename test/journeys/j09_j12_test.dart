@@ -63,7 +63,11 @@ void main() {
 
     // Tema de PrestaVecino (DSN-006): semilla verde.
     final context = tester.element(find.byType(HomePage));
-    final expected = ColorScheme.fromSeed(seedColor: const Color(0xFF2E7D32));
+    // En dispositivo el modo sigue al sistema: se compara con el brillo activo.
+    final expected = ColorScheme.fromSeed(
+      seedColor: const Color(0xFF2E7D32),
+      brightness: Theme.of(context).brightness,
+    );
     expect(Theme.of(context).colorScheme.primary, expected.primary);
 
     // Barra de 4 pestañas (NAV-005).
@@ -114,11 +118,13 @@ void main() {
 
     // 3 fallos bloquean el formulario y registran el evento (SEC-002, SEC-005).
     for (var i = 0; i < 3; i++) {
-      await tester.enterText(
+      await pv.escribir(
+        tester,
         find.byKey(const Key('login-identifier')),
         'ana@prestavecino.test',
       );
-      await tester.enterText(
+      await pv.escribir(
+        tester,
         find.byKey(const Key('login-secret')),
         'incorrecta-$i',
       );

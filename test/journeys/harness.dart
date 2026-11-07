@@ -66,6 +66,7 @@ class Pv {
       ),
     );
     await tester.pumpAndSettle();
+    await _tiempoReal(tester);
     return container;
   }
 
@@ -125,6 +126,51 @@ class Pv {
     await tester.pumpAndSettle();
     await tester.tap(f);
     await tester.pumpAndSettle();
+    await _tiempoReal(tester);
+  }
+
+  /// Escribe [texto] en [campo]. En dispositivo, un segundo `enterText` sobre
+  /// el mismo campo puede no llegar por la entrada de texto real; si el valor
+  /// no cambió, se fija directamente en el `EditableText`.
+  Future<void> escribir(WidgetTester tester, Finder campo, String texto) async {
+    await tester.enterText(campo, texto);
+    await tester.pumpAndSettle();
+    final editable = tester.state<EditableTextState>(
+      find.descendant(of: campo, matching: find.byType(EditableText)),
+    );
+    if (editable.textEditingValue.text != texto) {
+      editable.updateEditingValue(
+        TextEditingValue(
+          text: texto,
+          selection: TextSelection.collapsed(offset: texto.length),
+        ),
+      );
+      await tester.pumpAndSettle();
+    }
+  }
+
+  /// Textos visibles en pantalla; se usa como `reason` en las aserciones para
+  /// que un fallo en dispositivo diga qué se estaba mostrando.
+  String textos(WidgetTester tester) => find
+      .byType(Text)
+      .hitTestable()
+      .evaluate()
+      .map((e) => (e.widget as Text).data ?? '')
+      .where((t) => t.isNotEmpty)
+      .join(' | ');
+
+  /// En un dispositivo (integration_test) el reloj es real: `pumpAndSettle`
+  /// vuelve en cuanto no hay cuadros pendientes aunque siga en curso trabajo
+  /// asíncrono (alta, inicio de sesión). Se le da tiempo real y se vuelve a
+  /// asentar. En pruebas de widget no hace nada.
+  Future<void> _tiempoReal(WidgetTester tester) async {
+    if (tester.binding is! LiveTestWidgetsFlutterBinding) return;
+    for (var i = 0; i < 6; i++) {
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 100)),
+      );
+      await tester.pumpAndSettle();
+    }
   }
 
   /// Desplaza la lista [lista] hacia abajo como lo haría el usuario: el

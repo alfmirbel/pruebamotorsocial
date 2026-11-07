@@ -30,7 +30,11 @@ void main() {
     await pv.tap(tester, find.byKey(const Key('object-save')));
     expect(find.text('Escribe un título.'), findsOneWidget);
 
-    await tester.enterText(find.byKey(const Key('object-title')), 'Lijadora');
+    await pv.escribir(
+      tester,
+      find.byKey(const Key('object-title')),
+      'Lijadora',
+    );
     await pv.tap(tester, find.byKey(const Key('objeto-categoria')));
     await tester.tap(find.text('herramientas').last);
     await tester.pumpAndSettle();

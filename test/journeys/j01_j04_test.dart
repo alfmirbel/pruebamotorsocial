@@ -13,20 +13,26 @@ void main() {
     // Alta de Eva → inicio.
     expect(find.byKey(const Key('login-identifier')), findsOneWidget);
     await pv.tap(tester, find.byKey(const Key('login-register')));
-    await tester.enterText(find.byKey(const Key('register-name')), 'Eva');
-    await tester.enterText(
+    await pv.escribir(tester, find.byKey(const Key('register-name')), 'Eva');
+    await pv.escribir(
+      tester,
       find.byKey(const Key('register-email')),
       'eva@prestavecino.test',
     );
-    await tester.enterText(find.byKey(const Key('register-password')), 'corta');
+    await pv.escribir(
+      tester,
+      find.byKey(const Key('register-password')),
+      'corta',
+    );
     await pv.tap(tester, find.byKey(const Key('register-submit')));
     expect(find.textContaining('al menos 8'), findsOneWidget); // IDN-004
-    await tester.enterText(
+    await pv.escribir(
+      tester,
       find.byKey(const Key('register-password')),
       'prestavecino-eva-1',
     );
     await pv.tap(tester, find.byKey(const Key('register-submit')));
-    expect(find.text('Hola, Eva'), findsOneWidget);
+    expect(find.text('Hola, Eva'), findsOneWidget, reason: pv.textos(tester));
 
     // Reabrir: la sesión sigue (IDN-006, IDN-007).
     await pv.start(tester);
@@ -42,17 +48,23 @@ void main() {
     expect(find.byKey(const Key('login-identifier')), findsOneWidget);
 
     // Contraseña incorrecta: mensaje genérico (IDN-002).
-    await tester.enterText(
+    await pv.escribir(
+      tester,
       find.byKey(const Key('login-identifier')),
       'eva@prestavecino.test',
     );
-    await tester.enterText(find.byKey(const Key('login-secret')), 'mala-1234');
+    await pv.escribir(
+      tester,
+      find.byKey(const Key('login-secret')),
+      'mala-1234',
+    );
     await pv.tap(tester, find.byKey(const Key('login-submit')));
     expect(find.text('Correo o contraseña incorrectos.'), findsOneWidget);
 
     // Olvidé mi contraseña: siempre el mismo mensaje (IDN-005).
     await pv.tap(tester, find.text('¿Olvidaste tu contraseña?'));
-    await tester.enterText(
+    await pv.escribir(
+      tester,
       find.byKey(const Key('recover-email')),
       'eva@prestavecino.test',
     );
@@ -62,7 +74,8 @@ void main() {
     await tester.pumpAndSettle();
 
     // Entra y vuelve a la ruta original (NAV-009).
-    await tester.enterText(
+    await pv.escribir(
+      tester,
       find.byKey(const Key('login-secret')),
       'prestavecino-eva-1',
     );
@@ -78,7 +91,7 @@ void main() {
 
     // CP 44160 → Americana (LOC-004, LOC-005).
     await pv.ir(tester, AppRoutes.locality);
-    await tester.enterText(find.byKey(const Key('locality-cp')), '44160');
+    await pv.escribir(tester, find.byKey(const Key('locality-cp')), '44160');
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle();
     await pv.tap(tester, find.byKey(const Key('locality-place:americana')));
@@ -99,7 +112,7 @@ void main() {
 
     // Cuenta: nombre visible editable (FEA-006) y visible en Perfil (FEA-005).
     await pv.ir(tester, AppRoutes.account);
-    await tester.enterText(find.byKey(const Key('account-name')), 'Eva G.');
+    await pv.escribir(tester, find.byKey(const Key('account-name')), 'Eva G.');
     await pv.tap(tester, find.byKey(const Key('account-save')));
     await tester.pageBack();
     await tester.pumpAndSettle();
@@ -160,7 +173,7 @@ void main() {
     await tester.pumpAndSettle();
     await pv.eva(tester);
     await pv.ir(tester, AppRoutes.contacts);
-    await tester.enterText(find.byKey(const Key('contacts-search')), 'Dani');
+    await pv.escribir(tester, find.byKey(const Key('contacts-search')), 'Dani');
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle();
     await pv.tap(tester, find.byKey(const Key('invite-user:dani')));
