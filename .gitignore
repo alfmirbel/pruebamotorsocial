@@ -89,3 +89,12 @@ htmlcov/
 node_modules/
 package-lock.json
 .npm/
+
+# Credenciales locales (nunca en git)
+defines.json
+defines.*.json
+.verify/
+.flutter-plugins
+.flutter-plugins-dependencies
+.idea/
+*.iml

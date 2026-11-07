@@ -1,0 +1,12 @@
+[
+  {
+    "_id": "relationship:ana-beto",
+    "docType": "relationship",
+    "actorId": "user:ana",
+    "otherId": "user:beto",
+    "type": "contact",
+    "status": "accepted",
+    "direction": "mutual",
+    "createdAt": 1767225600000
+  }
+]

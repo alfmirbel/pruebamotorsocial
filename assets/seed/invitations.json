@@ -1,0 +1,11 @@
+[
+  {
+    "_id": "invitation:beto-carla",
+    "docType": "invitation",
+    "senderId": "user:beto",
+    "receiverId": "user:carla",
+    "type": "contact",
+    "status": "pending",
+    "createdAt": 1767229200000
+  }
+]

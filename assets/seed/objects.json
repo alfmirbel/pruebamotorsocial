@@ -1,0 +1,364 @@
+[
+  {
+    "_id": "object:taladro",
+    "docType": "object",
+    "creatorId": "user:beto",
+    "type": "objeto",
+    "status": "active",
+    "title": "Taladro inalámbrico",
+    "attributes": {
+      "categoria": "herramientas",
+      "estado": "bueno",
+      "disponible": true,
+      "colonia": "place:americana"
+    },
+    "labels": {
+      "categoria": "herramientas"
+    },
+    "location": {
+      "lat": 20.6755,
+      "lng": -103.37,
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "city": "Americana",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:taladro-1",
+      "media:taladro-2"
+    ],
+    "createdAt": 1767229200000,
+    "updatedAt": 1767229200000
+  },
+  {
+    "_id": "object:escalera",
+    "docType": "object",
+    "creatorId": "user:ana",
+    "type": "objeto",
+    "status": "active",
+    "title": "Escalera de aluminio",
+    "attributes": {
+      "categoria": "hogar",
+      "estado": "bueno",
+      "disponible": false,
+      "colonia": "place:americana",
+      "prestadoA": "user:carla"
+    },
+    "labels": {
+      "categoria": "hogar"
+    },
+    "location": {
+      "lat": 20.6755,
+      "lng": -103.37,
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "city": "Americana",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:escalera-1"
+    ],
+    "createdAt": 1767232800000,
+    "updatedAt": 1767232800000
+  },
+  {
+    "_id": "object:carpa",
+    "docType": "object",
+    "creatorId": "user:ana",
+    "type": "objeto",
+    "status": "active",
+    "title": "Carpa para 4 personas",
+    "attributes": {
+      "categoria": "eventos",
+      "estado": "regular",
+      "disponible": true,
+      "colonia": "place:americana"
+    },
+    "labels": {
+      "categoria": "eventos"
+    },
+    "location": {
+      "lat": 20.6755,
+      "lng": -103.37,
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "city": "Americana",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:carpa-1"
+    ],
+    "createdAt": 1767236400000,
+    "updatedAt": 1767236400000
+  },
+  {
+    "_id": "object:bici",
+    "docType": "object",
+    "creatorId": "user:carla",
+    "type": "objeto",
+    "status": "active",
+    "title": "Bici infantil",
+    "attributes": {
+      "categoria": "deportes",
+      "estado": "bueno",
+      "disponible": true,
+      "colonia": "place:americana"
+    },
+    "labels": {
+      "categoria": "deportes"
+    },
+    "location": {
+      "lat": 20.6755,
+      "lng": -103.37,
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "city": "Americana",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:bici-1"
+    ],
+    "createdAt": 1767240000000,
+    "updatedAt": 1767240000000
+  },
+  {
+    "_id": "object:catan",
+    "docType": "object",
+    "creatorId": "user:beto",
+    "type": "objeto",
+    "status": "active",
+    "title": "Juego de mesa Catan",
+    "attributes": {
+      "categoria": "juegos",
+      "estado": "bueno",
+      "disponible": true,
+      "colonia": "place:americana"
+    },
+    "labels": {
+      "categoria": "juegos"
+    },
+    "location": {
+      "lat": 20.6755,
+      "lng": -103.37,
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "city": "Americana",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:catan-1"
+    ],
+    "createdAt": 1767243600000,
+    "updatedAt": 1767243600000
+  },
+  {
+    "_id": "object:dixit",
+    "docType": "object",
+    "creatorId": "user:carla",
+    "type": "objeto",
+    "status": "active",
+    "title": "Juego de mesa Dixit",
+    "attributes": {
+      "categoria": "juegos",
+      "estado": "regular",
+      "disponible": true,
+      "colonia": "place:americana"
+    },
+    "labels": {
+      "categoria": "juegos"
+    },
+    "location": {
+      "lat": 20.6755,
+      "lng": -103.37,
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "city": "Americana",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:dixit-1"
+    ],
+    "createdAt": 1767247200000,
+    "updatedAt": 1767247200000
+  },
+  {
+    "_id": "object:caja",
+    "docType": "object",
+    "creatorId": "user:beto",
+    "type": "objeto",
+    "status": "active",
+    "title": "Caja de herramientas",
+    "attributes": {
+      "categoria": "herramientas",
+      "estado": "regular",
+      "disponible": true,
+      "colonia": "place:americana"
+    },
+    "labels": {
+      "categoria": "herramientas"
+    },
+    "location": {
+      "lat": 20.6755,
+      "lng": -103.37,
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "city": "Americana",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:caja-1"
+    ],
+    "createdAt": 1767250800000,
+    "updatedAt": 1767250800000
+  },
+  {
+    "_id": "object:proyector",
+    "docType": "object",
+    "creatorId": "user:beto",
+    "type": "objeto",
+    "status": "active",
+    "title": "Proyector",
+    "attributes": {
+      "categoria": "electronica",
+      "estado": "bueno",
+      "disponible": true,
+      "colonia": "place:americana"
+    },
+    "labels": {
+      "categoria": "electronica"
+    },
+    "location": {
+      "lat": 20.6755,
+      "lng": -103.37,
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "city": "Americana",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:proyector-1"
+    ],
+    "createdAt": 1767254400000,
+    "updatedAt": 1767254400000
+  },
+  {
+    "_id": "object:podadora",
+    "docType": "object",
+    "creatorId": "user:dani",
+    "type": "objeto",
+    "status": "active",
+    "title": "Podadora",
+    "attributes": {
+      "categoria": "jardin",
+      "estado": "bueno",
+      "disponible": false,
+      "colonia": "place:chapalita"
+    },
+    "labels": {
+      "categoria": "jardin"
+    },
+    "location": {
+      "lat": 20.6637,
+      "lng": -103.401,
+      "placeId": "place:chapalita",
+      "postalCode": "44500",
+      "city": "Chapalita",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:podadora-1"
+    ],
+    "createdAt": 1767258000000,
+    "updatedAt": 1767258000000
+  },
+  {
+    "_id": "object:sillas",
+    "docType": "object",
+    "creatorId": "user:dani",
+    "type": "objeto",
+    "status": "active",
+    "title": "Sillas plegables (6)",
+    "attributes": {
+      "categoria": "eventos",
+      "estado": "bueno",
+      "disponible": true,
+      "colonia": "place:chapalita"
+    },
+    "labels": {
+      "categoria": "eventos"
+    },
+    "location": {
+      "lat": 20.6637,
+      "lng": -103.401,
+      "placeId": "place:chapalita",
+      "postalCode": "44500",
+      "city": "Chapalita",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:sillas-1"
+    ],
+    "createdAt": 1767261600000,
+    "updatedAt": 1767261600000
+  },
+  {
+    "_id": "object:cafetera",
+    "docType": "object",
+    "creatorId": "user:dani",
+    "type": "objeto",
+    "status": "active",
+    "title": "Cafetera grande",
+    "attributes": {
+      "categoria": "hogar",
+      "estado": "regular",
+      "disponible": true,
+      "colonia": "place:chapalita"
+    },
+    "labels": {
+      "categoria": "hogar"
+    },
+    "location": {
+      "lat": 20.6637,
+      "lng": -103.401,
+      "placeId": "place:chapalita",
+      "postalCode": "44500",
+      "city": "Chapalita",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:cafetera-1"
+    ],
+    "createdAt": 1767265200000,
+    "updatedAt": 1767265200000
+  },
+  {
+    "_id": "object:patineta",
+    "docType": "object",
+    "creatorId": "user:dani",
+    "type": "objeto",
+    "status": "active",
+    "title": "Patineta",
+    "attributes": {
+      "categoria": "deportes",
+      "estado": "bueno",
+      "disponible": true,
+      "colonia": "place:chapalita"
+    },
+    "labels": {
+      "categoria": "deportes"
+    },
+    "location": {
+      "lat": 20.6637,
+      "lng": -103.401,
+      "placeId": "place:chapalita",
+      "postalCode": "44500",
+      "city": "Chapalita",
+      "country": "MX"
+    },
+    "mediaIds": [
+      "media:patineta-1"
+    ],
+    "createdAt": 1767268800000,
+    "updatedAt": 1767268800000
+  }
+]

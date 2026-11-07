@@ -1,0 +1,223 @@
+[
+  {
+    "_id": "media:taladro-1",
+    "docType": "media",
+    "ownerId": "user:beto",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:taladro",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "taladro-1.png",
+    "createdAt": 1767229200000,
+    "_files": {
+      "original": "fotos/taladro-1.png",
+      "thumb": "fotos/taladro-1.png"
+    }
+  },
+  {
+    "_id": "media:taladro-2",
+    "docType": "media",
+    "ownerId": "user:beto",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:taladro",
+    "order": 1,
+    "width": 96,
+    "height": 72,
+    "fileName": "taladro-2.png",
+    "createdAt": 1767229200000,
+    "_files": {
+      "original": "fotos/taladro-2.png",
+      "thumb": "fotos/taladro-2.png"
+    }
+  },
+  {
+    "_id": "media:escalera-1",
+    "docType": "media",
+    "ownerId": "user:ana",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:escalera",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "escalera-1.png",
+    "createdAt": 1767232800000,
+    "_files": {
+      "original": "fotos/escalera-1.png",
+      "thumb": "fotos/escalera-1.png"
+    }
+  },
+  {
+    "_id": "media:carpa-1",
+    "docType": "media",
+    "ownerId": "user:ana",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:carpa",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "carpa-1.png",
+    "createdAt": 1767236400000,
+    "_files": {
+      "original": "fotos/carpa-1.png",
+      "thumb": "fotos/carpa-1.png"
+    }
+  },
+  {
+    "_id": "media:bici-1",
+    "docType": "media",
+    "ownerId": "user:carla",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:bici",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "bici-1.png",
+    "createdAt": 1767240000000,
+    "_files": {
+      "original": "fotos/bici-1.png",
+      "thumb": "fotos/bici-1.png"
+    }
+  },
+  {
+    "_id": "media:catan-1",
+    "docType": "media",
+    "ownerId": "user:beto",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:catan",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "catan-1.png",
+    "createdAt": 1767243600000,
+    "_files": {
+      "original": "fotos/catan-1.png",
+      "thumb": "fotos/catan-1.png"
+    }
+  },
+  {
+    "_id": "media:dixit-1",
+    "docType": "media",
+    "ownerId": "user:carla",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:dixit",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "dixit-1.png",
+    "createdAt": 1767247200000,
+    "_files": {
+      "original": "fotos/dixit-1.png",
+      "thumb": "fotos/dixit-1.png"
+    }
+  },
+  {
+    "_id": "media:caja-1",
+    "docType": "media",
+    "ownerId": "user:beto",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:caja",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "caja-1.png",
+    "createdAt": 1767250800000,
+    "_files": {
+      "original": "fotos/caja-1.png",
+      "thumb": "fotos/caja-1.png"
+    }
+  },
+  {
+    "_id": "media:proyector-1",
+    "docType": "media",
+    "ownerId": "user:beto",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:proyector",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "proyector-1.png",
+    "createdAt": 1767254400000,
+    "_files": {
+      "original": "fotos/proyector-1.png",
+      "thumb": "fotos/proyector-1.png"
+    }
+  },
+  {
+    "_id": "media:podadora-1",
+    "docType": "media",
+    "ownerId": "user:dani",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:podadora",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "podadora-1.png",
+    "createdAt": 1767258000000,
+    "_files": {
+      "original": "fotos/podadora-1.png",
+      "thumb": "fotos/podadora-1.png"
+    }
+  },
+  {
+    "_id": "media:sillas-1",
+    "docType": "media",
+    "ownerId": "user:dani",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:sillas",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "sillas-1.png",
+    "createdAt": 1767261600000,
+    "_files": {
+      "original": "fotos/sillas-1.png",
+      "thumb": "fotos/sillas-1.png"
+    }
+  },
+  {
+    "_id": "media:cafetera-1",
+    "docType": "media",
+    "ownerId": "user:dani",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:cafetera",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "cafetera-1.png",
+    "createdAt": 1767265200000,
+    "_files": {
+      "original": "fotos/cafetera-1.png",
+      "thumb": "fotos/cafetera-1.png"
+    }
+  },
+  {
+    "_id": "media:patineta-1",
+    "docType": "media",
+    "ownerId": "user:dani",
+    "assetType": "image",
+    "contentType": "image/png",
+    "objectId": "object:patineta",
+    "order": 0,
+    "width": 96,
+    "height": 72,
+    "fileName": "patineta-1.png",
+    "createdAt": 1767268800000,
+    "_files": {
+      "original": "fotos/patineta-1.png",
+      "thumb": "fotos/patineta-1.png"
+    }
+  }
+]

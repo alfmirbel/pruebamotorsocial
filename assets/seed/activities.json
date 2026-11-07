@@ -1,0 +1,212 @@
+[
+  {
+    "_id": "activity:post-taladro",
+    "docType": "activity",
+    "actorId": "user:beto",
+    "actorName": "Beto",
+    "verb": "post",
+    "objectType": "object",
+    "objectId": "object:taladro",
+    "payload": {
+      "title": "Taladro inalámbrico"
+    },
+    "createdAt": 1767229200000,
+    "targetId": "group:americana"
+  },
+  {
+    "_id": "activity:post-escalera",
+    "docType": "activity",
+    "actorId": "user:ana",
+    "actorName": "Ana",
+    "verb": "post",
+    "objectType": "object",
+    "objectId": "object:escalera",
+    "payload": {
+      "title": "Escalera de aluminio"
+    },
+    "createdAt": 1767232800000,
+    "targetId": "group:americana"
+  },
+  {
+    "_id": "activity:post-carpa",
+    "docType": "activity",
+    "actorId": "user:ana",
+    "actorName": "Ana",
+    "verb": "post",
+    "objectType": "object",
+    "objectId": "object:carpa",
+    "payload": {
+      "title": "Carpa para 4 personas"
+    },
+    "createdAt": 1767236400000,
+    "targetId": "group:americana"
+  },
+  {
+    "_id": "activity:post-bici",
+    "docType": "activity",
+    "actorId": "user:carla",
+    "actorName": "Carla",
+    "verb": "post",
+    "objectType": "object",
+    "objectId": "object:bici",
+    "payload": {
+      "title": "Bici infantil"
+    },
+    "createdAt": 1767240000000,
+    "targetId": "group:americana"
+  },
+  {
+    "_id": "activity:post-catan",
+    "docType": "activity",
+    "actorId": "user:beto",
+    "actorName": "Beto",
+    "verb": "post",
+    "objectType": "object",
+    "objectId": "object:catan",
+    "payload": {
+      "title": "Juego de mesa Catan"
+    },
+    "createdAt": 1767243600000,
+    "targetId": "group:americana"
+  },
+  {
+    "_id": "activity:post-dixit",
+    "docType": "activity",
+    "actorId": "user:carla",
+    "actorName": "Carla",
+    "verb": "post",
+    "objectType": "object",
+    "objectId": "object:dixit",
+    "payload": {
+      "title": "Juego de mesa Dixit"
+    },
+    "createdAt": 1767247200000,
+    "targetId": "group:americana"
+  },
+  {
+    "_id": "activity:post-caja",
+    "docType": "activity",
+    "actorId": "user:beto",
+    "actorName": "Beto",
+    "verb": "post",
+    "objectType": "object",
+    "objectId": "object:caja",
+    "payload": {
+      "title": "Caja de herramientas"
+    },
+    "createdAt": 1767250800000,
+    "targetId": "group:americana"
+  },
+  {
+    "_id": "activity:post-proyector",
+    "docType": "activity",
+    "actorId": "user:beto",
+    "actorName": "Beto",
+    "verb": "post",
+    "objectType": "object",
+    "objectId": "object:proyector",
+    "payload": {
+      "title": "Proyector"
+    },
+    "createdAt": 1767254400000,
+    "targetId": "group:americana"
+  },
+  {
+    "_id": "activity:post-podadora",
+    "docType": "activity",
+    "actorId": "user:dani",
+    "actorName": "Dani",
+    "verb": "post",
+    "objectType": "object",
+    "objectId": "object:podadora",
+    "payload": {
+      "title": "Podadora"
+    },
+    "createdAt": 1767258000000,
+    "targetId": "group:chapalita"
+  },
+  {
+    "_id": "activity:solicito-taladro",
+    "docType": "activity",
+    "actorId": "user:ana",
+    "actorName": "Ana",
+    "verb": "solicito",
+    "objectType": "object",
+    "objectId": "object:taladro",
+    "payload": {
+      "title": "Taladro inalámbrico"
+    },
+    "createdAt": 1767297600000,
+    "targetId": "user:beto"
+  },
+  {
+    "_id": "activity:presto-taladro",
+    "docType": "activity",
+    "actorId": "user:beto",
+    "actorName": "Beto",
+    "verb": "presto",
+    "objectType": "object",
+    "objectId": "object:taladro",
+    "payload": {
+      "title": "Taladro inalámbrico",
+      "to": "user:ana"
+    },
+    "createdAt": 1767301200000,
+    "targetId": "user:ana"
+  },
+  {
+    "_id": "activity:devolvio-taladro",
+    "docType": "activity",
+    "actorId": "user:ana",
+    "actorName": "Ana",
+    "verb": "devolvio",
+    "objectType": "object",
+    "objectId": "object:taladro",
+    "payload": {
+      "title": "Taladro inalámbrico"
+    },
+    "createdAt": 1767333600000,
+    "targetId": "user:beto"
+  },
+  {
+    "_id": "activity:presto-escalera",
+    "docType": "activity",
+    "actorId": "user:ana",
+    "actorName": "Ana",
+    "verb": "presto",
+    "objectType": "object",
+    "objectId": "object:escalera",
+    "payload": {
+      "title": "Escalera de aluminio",
+      "to": "user:carla"
+    },
+    "createdAt": 1767337200000,
+    "targetId": "user:carla"
+  },
+  {
+    "_id": "activity:comenta-carpa",
+    "docType": "activity",
+    "actorId": "user:carla",
+    "actorName": "Carla",
+    "verb": "comment",
+    "objectType": "object",
+    "objectId": "object:carpa",
+    "payload": {
+      "text": "¿Se puede reservar para el sábado?"
+    },
+    "createdAt": 1767340800000
+  },
+  {
+    "_id": "activity:comenta-catan",
+    "docType": "activity",
+    "actorId": "user:ana",
+    "actorName": "Ana",
+    "verb": "comment",
+    "objectType": "object",
+    "objectId": "object:catan",
+    "payload": {
+      "text": "¡Gran juego para la reunión!"
+    },
+    "createdAt": 1767344400000
+  }
+]

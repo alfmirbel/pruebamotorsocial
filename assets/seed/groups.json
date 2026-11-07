@@ -1,0 +1,24 @@
+[
+  {
+    "_id": "group:americana",
+    "docType": "group",
+    "ownerId": "user:ana",
+    "name": "Vecinos Americana",
+    "description": "Préstamos entre vecinos de la colonia Americana",
+    "visibility": "public",
+    "joinable": true,
+    "placeId": "place:americana",
+    "createdAt": 1767225600000
+  },
+  {
+    "_id": "group:chapalita",
+    "docType": "group",
+    "ownerId": "user:dani",
+    "name": "Vecinos Chapalita",
+    "description": "Préstamos entre vecinos de Chapalita",
+    "visibility": "public",
+    "joinable": true,
+    "placeId": "place:chapalita",
+    "createdAt": 1767225600001
+  }
+]

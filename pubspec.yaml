@@ -1,36 +1,32 @@
 name: pruebamotorsocial
-description: "App mínima Motor Social: usuarios, login, chat, objeto social y feed vacío."
+description: "PrestaVecino: préstamo de objetos entre vecinos. Cliente de referencia de MotorSocial."
 publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.2.0 <4.0.0"
+  sdk: '>=3.8.0 <4.0.0'
+  flutter: '>=3.44.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8
-
-  flutter_riverpod: ^3.4.2
-  connectivity_plus: ^7.3.1
-  shared_preferences: ^2.2.2
-  http: ^1.2.0
-  fpdart: ^1.2.0
-  location: ^10.0.2
-  dio: ^5.11.0
-  dio_smart_retry: ^7.0.1
-  flutter_secure_storage: ^11.0.0
+  flutter_web_plugins:
+    sdk: flutter
+  flutter_riverpod: ^3.0.0
+  # El motor: el cliente no copia código, sólo lo configura y compone.
+  motorsocial:
+    path: ../motorsocial
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^6.0.0
-  build_runner: ^2.4.0
-  freezed: ^3.2.5
-  freezed_annotation: ^3.1.0
-  json_serializable: ^6.8.0
+  integration_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/contracts/motorsocial_contracts.json
+    - assets/config/
+    - assets/seed/
+    - assets/seed/fotos/

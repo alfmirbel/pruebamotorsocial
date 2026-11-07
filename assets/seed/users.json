@@ -1,0 +1,90 @@
+[
+  {
+    "name": "ana",
+    "password": "prestavecino-ana-1",
+    "profile": {
+      "email": "ana@prestavecino.test",
+      "displayName": "Ana",
+      "roleKey": "moderador",
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "location": {
+        "lat": 20.6755,
+        "lng": -103.37,
+        "placeId": "place:americana",
+        "postalCode": "44160",
+        "city": "Americana",
+        "country": "MX"
+      },
+      "isPrivate": false,
+      "createdAt": 1767225600000,
+      "updatedAt": 1767225600000
+    }
+  },
+  {
+    "name": "beto",
+    "password": "prestavecino-beto-1",
+    "profile": {
+      "email": "beto@prestavecino.test",
+      "displayName": "Beto",
+      "roleKey": "vecino",
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "location": {
+        "lat": 20.6755,
+        "lng": -103.37,
+        "placeId": "place:americana",
+        "postalCode": "44160",
+        "city": "Americana",
+        "country": "MX"
+      },
+      "isPrivate": false,
+      "createdAt": 1767225600000,
+      "updatedAt": 1767225600000
+    }
+  },
+  {
+    "name": "carla",
+    "password": "prestavecino-carla-1",
+    "profile": {
+      "email": "carla@prestavecino.test",
+      "displayName": "Carla",
+      "roleKey": "vecino",
+      "placeId": "place:americana",
+      "postalCode": "44160",
+      "location": {
+        "lat": 20.6755,
+        "lng": -103.37,
+        "placeId": "place:americana",
+        "postalCode": "44160",
+        "city": "Americana",
+        "country": "MX"
+      },
+      "isPrivate": false,
+      "createdAt": 1767225600000,
+      "updatedAt": 1767225600000
+    }
+  },
+  {
+    "name": "dani",
+    "password": "prestavecino-dani-1",
+    "profile": {
+      "email": "dani@prestavecino.test",
+      "displayName": "Dani",
+      "roleKey": "vecino",
+      "placeId": "place:chapalita",
+      "postalCode": "44500",
+      "location": {
+        "lat": 20.6637,
+        "lng": -103.401,
+        "placeId": "place:chapalita",
+        "postalCode": "44500",
+        "city": "Chapalita",
+        "country": "MX"
+      },
+      "isPrivate": false,
+      "createdAt": 1767225600000,
+      "updatedAt": 1767225600000
+    }
+  }
+]

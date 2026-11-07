@@ -1,0 +1,65 @@
+{
+  "appName": "PrestaVecino",
+  "themeId": "prestavecino",
+  "dataMode": "memory",
+  "nodes": {
+    "couchdb": {"scheme": "https", "host": "citigov.cloud", "port": 6984, "prefix": "test_"},
+    "identity": {
+      "loginTitle": "PrestaVecino",
+      "identifierLabel": "Correo",
+      "secretLabel": "Contraseña",
+      "primaryActionText": "Entrar",
+      "defaultRoles": ["vecino"],
+      "roles": {
+        "vecino": ["catalog.write"],
+        "moderador": ["catalog.write", "group.admin"]
+      }
+    },
+    "navigation": {
+      "startRoute": "/",
+      "bottomTabs": [
+        {"route": "/", "icon": "home", "label": "Inicio"},
+        {"route": "/catalog", "icon": "search", "label": "Explorar"},
+        {"route": "/feed", "icon": "feed", "label": "Actividad"},
+        {"route": "/profile", "icon": "person", "label": "Perfil", "badge": "invitations"}
+      ]
+    },
+    "location": {
+      "enableGps": true,
+      "enablePostalCodeLookup": true,
+      "defaultRadiusKm": 3,
+      "primaryActionLabel": "Usar mi ubicación",
+      "searchHint": "Código postal de tu colonia"
+    },
+    "catalog": {
+      "pageSize": 5,
+      "supportedTypes": ["objeto"],
+      "filterableAttributes": ["categoria", "disponible"],
+      "enableExport": true,
+      "exportFormats": ["pdf"]
+    },
+    "media": {"maxFileSizeMb": 5, "thumbWidth": 320, "maxAssetsPerOwner": 60},
+    "activity": {
+      "pageSize": 10,
+      "enabledVerbs": ["post", "like", "comment", "message", "join", "solicito", "presto", "devolvio"],
+      "verbLabels": {
+        "post": "publicó",
+        "like": "le interesa",
+        "comment": "comentó",
+        "join": "se unió a",
+        "solicito": "pidió prestado",
+        "presto": "prestó",
+        "devolvio": "devolvió"
+      }
+    },
+    "social_graph": {"maxMembersPerGroup": 300, "membersPageSize": 100},
+    "security": {"maxFailedLogins": 3, "lockDurationMs": 300000, "sessionTtlMinutes": 720},
+    "resilience": {"enabled": true, "offlineQueueMaxItems": 200, "maxSyncRetries": 5},
+    "design": {
+      "activeThemeId": "prestavecino",
+      "mode": "system",
+      "themes": [{"id": "prestavecino", "seedColor": "#2E7D32", "cornerRadius": 16}]
+    },
+    "prestavecino": {"version": "1.0.0", "categorias": ["herramientas", "hogar", "eventos", "deportes", "juegos", "electronica", "jardin"]}
+  }
+}

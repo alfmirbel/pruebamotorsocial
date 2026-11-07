@@ -2,18 +2,39 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, prestavecino]
   pull_request:
     branches: [main]
 
 jobs:
   flutter-ci:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - name: PrestaVecino
+        uses: actions/checkout@v4
+        with:
+          path: pruebamotorsocial
+      # El cliente depende del motor por ruta (../motorsocial).
+      - name: MotorSocial
+        uses: actions/checkout@v4
+        with:
+          repository: alfmirbel/motorsocial
+          ref: motor-v1
+          path: motorsocial
       - uses: subosito/flutter-action@v2
         with:
-          channel: stable
-      - run: flutter pub get
-      - run: flutter analyze
-      - run: dart format --set-exit-if-changed .
+          channel: master
+          cache: true
+      - name: Dependencias
+        working-directory: pruebamotorsocial
+        run: flutter pub get
+      - name: Formato
+        working-directory: pruebamotorsocial
+        run: dart format --set-exit-if-changed lib test integration_test
+      - name: Análisis
+        working-directory: pruebamotorsocial
+        run: flutter analyze
+      - name: Recorridos J-01…J-12 (modo semilla)
+        working-directory: pruebamotorsocial
+        run: flutter test

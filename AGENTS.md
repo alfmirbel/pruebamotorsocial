@@ -1,47 +1,23 @@
-# AGENTS.md — pruebamotorsocial
+# AGENTS.md — pruebamotorsocial (PrestaVecino)
 
-App Flutter de prueba para el **Motor de Red Social** `motorsocial`.
-Repos: `../motorsocial` (motor) y `../pruebamotorsocial` (app prueba).
+Thin client of the MotorSocial engine (`../motorsocial`). Product: **PrestaVecino** (neighbour item lending). This is a staging/test app: never expose sensitive data.
 
-## Build & run
+## Rules
 
-```bash
-cd ../pruebamotorsocial
+1. **Never copy engine code here.** Configure it (`assets/config/prestavecino.json`), override providers (`lib/prestavecino/app.dart`) or add routes (`PrestaVecino.routes`). If something requires changing or copying the engine, it is an engine gap: record it as a ⬜ requirement in the engine's module sheet (`../motorsocial/_documentacion/04_arquitectura_y_diseno/modulos/`).
+2. The only vertical business rule is the loan state (`lib/prestavecino/prestamo.dart`).
+3. Import the engine only through `package:motorsocial/motorsocial.dart`.
+4. Seed data lives in `assets/seed/` and is shared by seed mode (in-memory) and the integrated mode (`../motorsocial/tool/couchdb/seed.dart --fixtures`). Keep IDs stable: tests assert on them.
+5. Every journey J-01…J-12 is a widget test in `test/journeys/` (seed mode). Keep them green.
+6. `defines.json` is git-ignored and must never be committed (it holds admin credentials used only by the engine's `tool/couchdb/`).
+7. UI rules: same as the engine (`../motorsocial/AGENTS.md`): no inline colours, icons only via `SocialIcons`, M3 widgets, `if (!mounted) return;` after every `await` in `State` code.
+
+## Commands
+
+```powershell
+flutter pub get
 flutter analyze
+dart format --set-exit-if-changed lib test integration_test
 flutter test
-flutter run -d chrome
+flutter run -d windows [--dart-define=PV_MODO=integrado]
 ```
-
-## Dependencias clave
-
-- `motorsocial` via path `../motorsocial`
-- `flutter_riverpod` para estado
-- `connectivity_plus`, `shared_preferences`, `http`, `fpdart`
-
-## Arquitectura actual
-
-- `lib/main.dart`: carga `assets/contracts/motorsocial_contracts.json` y crea el bridge.
-- `lib/core/app_shell.dart`: shell principal con `ProviderScope`, tema M3 y tabs por `IndexedStack`.
-- `lib/core/motorsocial_bridge/bridge.dart`: adaptador del motor a la app prueba.
-- `lib/core/database/database_module.dart`: implementaciones en memoria del motor para prueba.
-
-## Workflow en Fase 3
-
-- Modificar primero `pruebamotorsocial` para garantizar que el motor se compone correctamente.
-- Las pruebas vivas de cada feature se harán aquí integrando contratos y providers.
-- No mezclar secretos ni backends antiguos en este repo.
-
-## Tests
-
-```bash
-flutter test
-```
-
-- Un test de humo mínimo en `test/widget_test.dart`.
-- Se agregarán pruebas unitarias/de integración por feature en `../pruebamotorsocial/test/`.
-
-## Notas
-
-- Si tocás contratos JSON, mantener coherencia con `SocialAppConfig`.
-- Esta app es de staging/prueba; no exponer datos sensibles.
-- **Password**: (en .env como COUCHDB_PASSWORD — nunca en este archivo)

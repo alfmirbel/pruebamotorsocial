@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "group_member:group:americana|user:ana",
+    "docType": "group_member",
+    "groupId": "group:americana",
+    "userId": "user:ana",
+    "role": "admin",
+    "addedBy": "user:ana",
+    "joinedAt": 1767225600000
+  },
+  {
+    "_id": "group_member:group:americana|user:beto",
+    "docType": "group_member",
+    "groupId": "group:americana",
+    "userId": "user:beto",
+    "role": "member",
+    "addedBy": "user:beto",
+    "joinedAt": 1767225600001
+  },
+  {
+    "_id": "group_member:group:americana|user:carla",
+    "docType": "group_member",
+    "groupId": "group:americana",
+    "userId": "user:carla",
+    "role": "member",
+    "addedBy": "user:carla",
+    "joinedAt": 1767225600002
+  },
+  {
+    "_id": "group_member:group:chapalita|user:dani",
+    "docType": "group_member",
+    "groupId": "group:chapalita",
+    "userId": "user:dani",
+    "role": "admin",
+    "addedBy": "user:dani",
+    "joinedAt": 1767225600003
+  }
+]

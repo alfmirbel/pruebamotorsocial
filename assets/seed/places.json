@@ -1,0 +1,22 @@
+[
+  {
+    "id": "place:americana",
+    "name": "Americana",
+    "postalCode": "44160",
+    "latitude": 20.6755,
+    "longitude": -103.37,
+    "city": "Guadalajara",
+    "state": "Jalisco",
+    "country": "México"
+  },
+  {
+    "id": "place:chapalita",
+    "name": "Chapalita",
+    "postalCode": "44500",
+    "latitude": 20.6637,
+    "longitude": -103.401,
+    "city": "Guadalajara",
+    "state": "Jalisco",
+    "country": "México"
+  }
+]
